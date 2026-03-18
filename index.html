@@ -7,111 +7,127 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Source+Serif+4:opsz,wght@8..60,300;400;600&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg:        #0c0e12;
-      --surface:   #13161d;
-      --border:    #1e2230;
-      --muted:     #3a3f52;
-      --text-dim:  #6b7394;
-      --text:      #c8cdd8;
-      --text-hi:   #eaecf0;
-      --accent:    #e05252;
-      --accent-lo: rgba(224,82,82,0.12);
-      --green:     #3ecf8e;
-      --yellow:    #f5c518;
-      --blue:      #4a9eff;
-      --purple:    #a78bfa;
-      --mono:      'IBM Plex Mono', monospace;
-      --sans:      'IBM Plex Sans', sans-serif;
+      --bg:         #f7f5f0;
+      --surface:    #ffffff;
+      --surface-2:  #f2efe9;
+      --border:     #ddd9d0;
+      --border-2:   #e8e4de;
+      --text-dim:   #8c8478;
+      --text:       #3d3a34;
+      --text-hi:    #1a1916;
+      --accent:     #c0392b;
+      --accent-lo:  rgba(192,57,43,0.08);
+      --accent-mid: rgba(192,57,43,0.18);
+      --green:      #2d7a4f;
+      --yellow:     #a07800;
+      --blue:       #1a5ea8;
+      --purple:     #6b3fa0;
+      --mono:       'IBM Plex Mono', monospace;
+      --serif:      'Source Serif 4', Georgia, serif;
     }
 
     html, body { height: 100%; }
     body {
-      font-family: var(--sans);
+      font-family: var(--serif);
       background: var(--bg);
       color: var(--text);
-      line-height: 1.6;
-      min-height: 100vh;
+      line-height: 1.65;
     }
 
     /* ── Layout ── */
-    .page { max-width: 1100px; margin: 0 auto; padding: 40px 24px 80px; }
+    .page { max-width: 1080px; margin: 0 auto; padding: 48px 24px 80px; }
 
     /* ── Header ── */
-    .header { margin-bottom: 40px; }
-    .header-top { display: flex; align-items: flex-start; justify-content: space-between; flex-wrap: wrap; gap: 16px; }
-    .header-tag {
+    .header { margin-bottom: 36px; border-bottom: 2px solid var(--text-hi); padding-bottom: 28px; }
+    .header-inner { display: flex; align-items: flex-start; justify-content: space-between; flex-wrap: wrap; gap: 20px; }
+    .header-left { flex: 1; min-width: 260px; }
+    .header-eyebrow {
       font-family: var(--mono);
       font-size: 10px;
-      letter-spacing: .15em;
+      letter-spacing: .18em;
       text-transform: uppercase;
       color: var(--accent);
-      background: var(--accent-lo);
-      border: 1px solid rgba(224,82,82,0.3);
-      padding: 4px 10px;
-      border-radius: 3px;
-      margin-bottom: 12px;
-      display: inline-block;
+      margin-bottom: 10px;
     }
     .header h1 {
-      font-size: clamp(1.5rem, 3vw, 2.2rem);
+      font-family: var(--serif);
+      font-size: clamp(1.6rem, 3.5vw, 2.4rem);
       font-weight: 600;
       color: var(--text-hi);
       letter-spacing: -.02em;
-      line-height: 1.2;
+      line-height: 1.15;
     }
     .header-subtitle {
-      margin-top: 8px;
-      font-size: .9rem;
+      margin-top: 10px;
+      font-size: .92rem;
       color: var(--text-dim);
-      max-width: 520px;
+      font-weight: 300;
+      max-width: 480px;
+      line-height: 1.6;
     }
-    .header-links { display: flex; gap: 12px; align-items: flex-start; flex-shrink: 0; }
+    .header-right { display: flex; flex-direction: column; align-items: flex-end; gap: 10px; padding-top: 4px; }
+    .header-actions { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; justify-content: flex-end; }
     .link-btn {
       font-family: var(--mono);
       font-size: 11px;
-      letter-spacing: .06em;
-      padding: 8px 14px;
-      border-radius: 4px;
+      letter-spacing: .05em;
+      padding: 7px 14px;
+      border-radius: 3px;
       text-decoration: none;
       font-weight: 500;
-      transition: opacity .15s;
+      transition: all .15s;
       display: inline-flex; align-items: center; gap: 6px;
+      white-space: nowrap;
     }
-    .link-btn:hover { opacity: .75; }
-    .link-btn-outline { color: var(--text); border: 1px solid var(--border); background: var(--surface); }
-    .link-btn-primary { color: #fff; background: var(--accent); border: 1px solid var(--accent); }
+    .link-btn:hover { opacity: .8; }
+    .link-btn-outline {
+      color: var(--text);
+      border: 1px solid var(--border);
+      background: var(--surface);
+    }
+    .link-btn-outline:hover { border-color: var(--text); }
+    .link-btn-github {
+      color: var(--surface);
+      background: var(--text-hi);
+      border: 1px solid var(--text-hi);
+    }
+    .disclaimer-header {
+      font-family: var(--mono);
+      font-size: 10px;
+      color: var(--text-dim);
+      text-align: right;
+      max-width: 320px;
+      line-height: 1.5;
+    }
 
     /* ── Stats row ── */
     .stats-row {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
       gap: 1px;
       background: var(--border);
       border: 1px solid var(--border);
-      border-radius: 8px;
+      border-radius: 6px;
       overflow: hidden;
-      margin-bottom: 24px;
+      margin-bottom: 20px;
     }
-    .stat-cell {
-      background: var(--surface);
-      padding: 16px 20px;
-    }
+    .stat-cell { background: var(--surface); padding: 14px 18px; }
     .stat-label {
       font-family: var(--mono);
-      font-size: 10px;
-      letter-spacing: .1em;
+      font-size: 9px;
+      letter-spacing: .12em;
       text-transform: uppercase;
       color: var(--text-dim);
-      margin-bottom: 6px;
+      margin-bottom: 5px;
     }
     .stat-value {
       font-family: var(--mono);
-      font-size: 1.35rem;
+      font-size: 1.3rem;
       font-weight: 500;
       color: var(--text-hi);
     }
@@ -119,262 +135,266 @@
     .stat-value.down { color: var(--green); }
     .stat-meta {
       font-family: var(--mono);
-      font-size: 10px;
+      font-size: 9px;
       color: var(--text-dim);
-      margin-top: 3px;
+      margin-top: 2px;
     }
 
     /* ── Chart card ── */
     .chart-card {
       background: var(--surface);
       border: 1px solid var(--border);
-      border-radius: 8px;
+      border-radius: 6px;
       overflow: hidden;
-      margin-bottom: 24px;
+      margin-bottom: 20px;
     }
     .chart-toolbar {
       display: flex;
       align-items: center;
       justify-content: space-between;
       flex-wrap: wrap;
-      gap: 12px;
-      padding: 14px 20px;
-      border-bottom: 1px solid var(--border);
+      gap: 10px;
+      padding: 12px 18px;
+      border-bottom: 1px solid var(--border-2);
+      background: var(--surface-2);
     }
     .toolbar-title {
       font-family: var(--mono);
-      font-size: 11px;
-      letter-spacing: .08em;
+      font-size: 10px;
+      letter-spacing: .1em;
       text-transform: uppercase;
       color: var(--text-dim);
     }
-    .toolbar-right { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+    .toolbar-right { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
 
     /* Range buttons */
-    .range-btns { display: flex; gap: 4px; }
+    .range-btns { display: flex; gap: 3px; }
     .range-btn {
       font-family: var(--mono);
       font-size: 11px;
-      padding: 5px 10px;
+      padding: 4px 10px;
       background: transparent;
-      border: 1px solid var(--muted);
+      border: 1px solid var(--border);
       color: var(--text-dim);
-      border-radius: 4px;
+      border-radius: 3px;
       cursor: pointer;
       transition: all .15s;
     }
-    .range-btn:hover { border-color: var(--text-dim); color: var(--text); }
-    .range-btn.active { background: var(--accent); border-color: var(--accent); color: #fff; }
+    .range-btn:hover { border-color: var(--text); color: var(--text); }
+    .range-btn.active { background: var(--text-hi); border-color: var(--text-hi); color: #fff; }
 
     /* Event toggle */
-    .event-toggle {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      cursor: pointer;
-      user-select: none;
-    }
+    .event-toggle { display: flex; align-items: center; gap: 8px; cursor: pointer; user-select: none; }
     .toggle-track {
-      width: 36px; height: 20px;
-      background: var(--muted);
-      border-radius: 10px;
+      width: 34px; height: 18px;
+      background: var(--border);
+      border-radius: 9px;
       position: relative;
       transition: background .2s;
+      flex-shrink: 0;
     }
     .toggle-track.on { background: var(--accent); }
     .toggle-thumb {
-      width: 14px; height: 14px;
+      width: 12px; height: 12px;
       background: #fff;
       border-radius: 50%;
       position: absolute;
       top: 3px; left: 3px;
       transition: left .2s;
+      box-shadow: 0 1px 3px rgba(0,0,0,.2);
     }
     .toggle-track.on .toggle-thumb { left: 19px; }
     .toggle-label {
       font-family: var(--mono);
-      font-size: 11px;
+      font-size: 10px;
       color: var(--text-dim);
       letter-spacing: .05em;
+      text-transform: uppercase;
     }
 
     /* Category filter */
-    .cat-filter { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
-    .cat-label {
-      font-family: var(--mono);
-      font-size: 10px;
-      color: var(--text-dim);
-      margin-right: 2px;
-    }
+    .cat-filter { display: flex; gap: 5px; flex-wrap: wrap; align-items: center; }
     .cat-btn {
       font-family: var(--mono);
-      font-size: 10px;
-      padding: 3px 9px;
+      font-size: 9px;
+      padding: 3px 8px;
       border-radius: 3px;
-      border: 1px solid transparent;
+      border: 1px solid;
       cursor: pointer;
       transition: all .15s;
       letter-spacing: .04em;
+      text-transform: uppercase;
     }
-    .cat-btn[data-cat="armed-conflict"]   { color: var(--accent); border-color: rgba(224,82,82,.3); background: rgba(224,82,82,.08); }
-    .cat-btn[data-cat="terrorism"]         { color: var(--yellow); border-color: rgba(245,197,24,.3); background: rgba(245,197,24,.08); }
-    .cat-btn[data-cat="political-crisis"]  { color: var(--blue);   border-color: rgba(74,158,255,.3); background: rgba(74,158,255,.08); }
-    .cat-btn[data-cat="domestic-conflict"] { color: var(--purple); border-color: rgba(167,139,250,.3); background: rgba(167,139,250,.08); }
-    .cat-btn.disabled { opacity: .35; }
+    .cat-btn[data-cat="armed-conflict"]   { color: var(--accent); border-color: rgba(192,57,43,.3); background: rgba(192,57,43,.06); }
+    .cat-btn[data-cat="terrorism"]         { color: var(--yellow); border-color: rgba(160,120,0,.3); background: rgba(160,120,0,.06); }
+    .cat-btn[data-cat="political-crisis"]  { color: var(--blue);   border-color: rgba(26,94,168,.3); background: rgba(26,94,168,.06); }
+    .cat-btn[data-cat="domestic-conflict"] { color: var(--purple); border-color: rgba(107,63,160,.3); background: rgba(107,63,160,.06); }
+    .cat-btn.disabled { opacity: .3; }
 
     /* Chart area */
-    .chart-body { padding: 20px; }
-    .chart-container { position: relative; height: 380px; }
-
-    /* Tooltip override */
-    .chartjs-tooltip {
-      background: var(--surface) !important;
-      border: 1px solid var(--border) !important;
-      border-radius: 6px !important;
-      font-family: var(--mono) !important;
-      font-size: 12px !important;
-      color: var(--text) !important;
-      padding: 10px 14px !important;
-      pointer-events: none;
-      white-space: nowrap;
-    }
+    .chart-body { padding: 20px 18px; }
+    .chart-container { position: relative; height: 360px; }
 
     /* ── Event tooltip popup ── */
     #event-popup {
       position: fixed;
       display: none;
-      z-index: 100;
+      z-index: 200;
       background: var(--surface);
       border: 1px solid var(--border);
-      border-left: 3px solid var(--accent);
-      border-radius: 6px;
-      padding: 12px 16px;
-      max-width: 280px;
+      border-radius: 5px;
+      padding: 12px 15px;
+      max-width: 270px;
       pointer-events: none;
-      box-shadow: 0 8px 24px rgba(0,0,0,.5);
+      box-shadow: 0 4px 20px rgba(0,0,0,.12);
     }
     #event-popup .ep-date {
       font-family: var(--mono);
-      font-size: 10px;
+      font-size: 9px;
+      letter-spacing: .1em;
       color: var(--text-dim);
       margin-bottom: 4px;
+      text-transform: uppercase;
     }
     #event-popup .ep-title {
       font-weight: 600;
-      font-size: .85rem;
+      font-size: .84rem;
       color: var(--text-hi);
-      margin-bottom: 4px;
+      margin-bottom: 5px;
+      font-family: var(--serif);
+      line-height: 1.3;
     }
     #event-popup .ep-desc {
-      font-size: .78rem;
+      font-size: .76rem;
       color: var(--text-dim);
-      line-height: 1.5;
+      line-height: 1.55;
+      font-family: var(--serif);
+      font-weight: 300;
     }
-    #event-popup .ep-cat {
-      display: inline-block;
+    #event-popup .ep-footer {
       margin-top: 8px;
-      font-family: var(--mono);
-      font-size: 9px;
-      letter-spacing: .08em;
-      text-transform: uppercase;
-      padding: 2px 7px;
-      border-radius: 2px;
-    }
-
-    /* ── Methodology section ── */
-    .section-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 16px;
-      margin-bottom: 24px;
-    }
-    @media(max-width: 640px) { .section-grid { grid-template-columns: 1fr; } }
-    .info-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 20px 24px;
-    }
-    .info-card h3 {
-      font-family: var(--mono);
-      font-size: 11px;
-      letter-spacing: .1em;
-      text-transform: uppercase;
-      color: var(--text-dim);
-      margin-bottom: 12px;
-    }
-    .info-card p, .info-card li {
-      font-size: .85rem;
-      color: var(--text-dim);
-      line-height: 1.7;
-    }
-    .info-card ul { padding-left: 16px; }
-    .info-card li { margin-bottom: 4px; }
-    .info-card strong { color: var(--text); font-weight: 500; }
-
-    /* Formula block */
-    .formula-block {
-      background: var(--bg);
-      border: 1px solid var(--border);
-      border-radius: 6px;
-      padding: 12px 16px;
-      font-family: var(--mono);
-      font-size: .8rem;
-      color: var(--text);
-      margin-top: 10px;
-      line-height: 1.8;
-    }
-    .formula-block .sym { color: var(--accent); }
-
-    /* Legend dots */
-    .legend-row { display: flex; gap: 16px; flex-wrap: wrap; margin-top: 10px; }
-    .legend-item { display: flex; align-items: center; gap: 6px; font-size: .78rem; color: var(--text-dim); font-family: var(--mono); }
-    .legend-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
-
-    /* Footer */
-    .footer {
-      margin-top: 48px;
-      padding-top: 20px;
-      border-top: 1px solid var(--border);
       display: flex;
       align-items: center;
       justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 12px;
+      gap: 8px;
     }
-    .footer-text { font-family: var(--mono); font-size: 10px; color: var(--muted); letter-spacing: .04em; }
+    #event-popup .ep-cat {
+      font-family: var(--mono);
+      font-size: 8px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      padding: 2px 6px;
+      border-radius: 2px;
+    }
+    #event-popup .ep-source {
+      font-family: var(--mono);
+      font-size: 8px;
+      color: var(--blue);
+      letter-spacing: .04em;
+    }
 
-    /* Loading overlay */
+    /* ── Info grid ── */
+    .info-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+    @media(max-width: 600px) { .info-grid { grid-template-columns: 1fr; } }
+    .info-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 20px;
+    }
+    .info-card h3 {
+      font-family: var(--mono);
+      font-size: 9px;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      margin-bottom: 12px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--border-2);
+    }
+    .info-card p, .info-card li {
+      font-size: .85rem;
+      color: var(--text);
+      line-height: 1.7;
+      font-weight: 300;
+    }
+    .info-card ul { padding-left: 16px; }
+    .info-card li { margin-bottom: 4px; }
+    .info-card strong { font-weight: 600; color: var(--text-hi); }
+
+    .formula-block {
+      background: var(--surface-2);
+      border: 1px solid var(--border-2);
+      border-radius: 4px;
+      padding: 12px 14px;
+      font-family: var(--mono);
+      font-size: .78rem;
+      color: var(--text);
+      margin-top: 12px;
+      line-height: 1.9;
+    }
+    .formula-block .sym { color: var(--accent); font-weight: 500; }
+
+    .legend-row { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 12px; }
+    .legend-item { display: flex; align-items: center; gap: 6px; font-size: .75rem; color: var(--text-dim); font-family: var(--mono); }
+    .legend-dot { width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0; }
+
+    /* ── Disclaimer box ── */
+    .disclaimer-box {
+      background: #fffbf0;
+      border: 1px solid #e8d88a;
+      border-left: 3px solid #c8a800;
+      border-radius: 4px;
+      padding: 14px 16px;
+      margin-bottom: 20px;
+    }
+    .disclaimer-box p {
+      font-size: .8rem;
+      color: #6b5800;
+      line-height: 1.6;
+      font-family: var(--mono);
+    }
+    .disclaimer-box strong { font-weight: 600; }
+
+    /* ── Footer ── */
+    .footer {
+      margin-top: 48px;
+      padding-top: 18px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+    .footer-col { font-family: var(--mono); font-size: 9px; color: var(--text-dim); line-height: 1.7; letter-spacing: .03em; }
+    .footer-col a { color: var(--blue); text-decoration: none; }
+    .footer-col a:hover { text-decoration: underline; }
+
+    /* ── Loading ── */
     #loading {
       position: fixed; inset: 0; background: var(--bg);
       display: flex; align-items: center; justify-content: center;
-      z-index: 999;
-      transition: opacity .4s;
+      z-index: 999; transition: opacity .35s;
     }
     .loading-inner { text-align: center; }
-    .loading-bar {
-      width: 180px; height: 2px; background: var(--border);
-      border-radius: 2px; overflow: hidden; margin: 16px auto 0;
+    .loading-bar { width: 160px; height: 2px; background: var(--border-2); border-radius: 2px; overflow: hidden; margin: 14px auto 0; }
+    .loading-fill { height: 100%; background: var(--accent); animation: lp 1.4s ease-in-out infinite; }
+    @keyframes lp {
+      0%   { width: 0%;   margin-left: 0; }
+      50%  { width: 60%;  margin-left: 20%; }
+      100% { width: 0%;   margin-left: 100%; }
     }
-    .loading-fill {
-      height: 100%; background: var(--accent);
-      animation: loadpulse 1.4s ease-in-out infinite;
-    }
-    @keyframes loadpulse {
-      0%   { width: 0%; margin-left: 0; }
-      50%  { width: 60%; margin-left: 20%; }
-      100% { width: 0%; margin-left: 100%; }
-    }
-    .loading-text {
-      font-family: var(--mono); font-size: 11px;
-      letter-spacing: .12em; color: var(--text-dim);
-      text-transform: uppercase;
-    }
+    .loading-text { font-family: var(--mono); font-size: 10px; letter-spacing: .14em; color: var(--text-dim); text-transform: uppercase; }
   </style>
 </head>
 <body>
 
-<!-- Loading -->
 <div id="loading">
   <div class="loading-inner">
     <div class="loading-text">Loading GSCI Data</div>
@@ -382,43 +402,53 @@
   </div>
 </div>
 
-<!-- Event popup -->
 <div id="event-popup">
   <div class="ep-date" id="ep-date"></div>
   <div class="ep-title" id="ep-title"></div>
   <div class="ep-desc" id="ep-desc"></div>
-  <div class="ep-cat" id="ep-cat"></div>
+  <div class="ep-footer">
+    <div class="ep-cat" id="ep-cat"></div>
+    <a class="ep-source" id="ep-source" href="#" target="_blank" rel="noopener"></a>
+  </div>
 </div>
 
 <div class="page">
 
   <!-- Header -->
   <header class="header">
-    <div class="header-top">
-      <div>
-        <div class="header-tag">Real-time · GDELT · Open Source</div>
-        <h1>Global Severity-weighted<br>Conflict Index</h1>
-        <p class="header-subtitle">An event-based daily measure of global conflict intensity, constructed from GDELT CAMEO-coded events weighted by Goldstein severity scores.</p>
+    <div class="header-inner">
+      <div class="header-left">
+        <div class="header-eyebrow">GDELT · CAMEO · Daily · Open Source</div>
+        <h1>Global Severity-weighted<br>Conflict Index (GSCI)</h1>
+        <p class="header-subtitle">An event-based daily measure of global conflict intensity constructed from GDELT CAMEO-coded events, weighted by Goldstein severity scores and source-share normalized.</p>
       </div>
-      <div class="header-links">
-        <a href="gsci_data.csv" download class="link-btn link-btn-outline">
-          <svg width="12" height="12" viewBox="0 0 16 16" fill="currentColor"><path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/><path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"/></svg>
-          Download CSV
-        </a>
-        <a href="https://github.com/YOUR_USERNAME/GSCI-Tracker" target="_blank" class="link-btn link-btn-outline">
-          <svg width="12" height="12" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
-          GitHub
-        </a>
+      <div class="header-right">
+        <div class="header-actions">
+          <a href="gsci_data.csv" download class="link-btn link-btn-outline">
+            <svg width="11" height="11" viewBox="0 0 16 16" fill="currentColor"><path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/><path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"/></svg>
+            Download CSV
+          </a>
+          <a href="https://github.com/YOUR_USERNAME/GSCI-Tracker" target="_blank" rel="noopener" class="link-btn link-btn-github">
+            <svg width="11" height="11" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
+            GitHub
+          </a>
+        </div>
+        <div class="disclaimer-header">Data auto-updated weekly · Events curated by Claude AI<br>Users should independently verify event details</div>
       </div>
     </div>
   </header>
 
+  <!-- Disclaimer -->
+  <div class="disclaimer-box">
+    <p><strong>Note on Event Annotations:</strong> The geopolitical events displayed on this chart were collected and described by Claude (Anthropic AI). While each event links to a cited source, descriptions may contain inaccuracies or omissions. Users are encouraged to independently verify event details via the provided source links before drawing conclusions.</p>
+  </div>
+
   <!-- Stats -->
-  <div class="stats-row" id="stats-row">
+  <div class="stats-row">
     <div class="stat-cell">
       <div class="stat-label">Latest Value</div>
       <div class="stat-value" id="stat-latest">—</div>
-      <div class="stat-meta" id="stat-latest-date">Loading…</div>
+      <div class="stat-meta" id="stat-latest-date">—</div>
     </div>
     <div class="stat-cell">
       <div class="stat-label">30-Day Change</div>
@@ -436,33 +466,29 @@
       <div class="stat-meta" id="stat-max-date">—</div>
     </div>
     <div class="stat-cell">
-      <div class="stat-label">Data Coverage</div>
+      <div class="stat-label">Observations</div>
       <div class="stat-value" id="stat-obs">—</div>
-      <div class="stat-meta">Daily observations</div>
+      <div class="stat-meta">Daily records</div>
     </div>
   </div>
 
   <!-- Chart -->
   <div class="chart-card">
     <div class="chart-toolbar">
-      <div class="toolbar-title">GSCI Daily Index</div>
+      <div class="toolbar-title">GSCI · Daily Index Value</div>
       <div class="toolbar-right">
-        <!-- Event toggle -->
         <label class="event-toggle" id="event-toggle-wrap">
           <div class="toggle-track" id="toggle-track">
             <div class="toggle-thumb"></div>
           </div>
-          <span class="toggle-label">Show Events</span>
+          <span class="toggle-label">Events</span>
         </label>
-        <!-- Category filters (hidden until toggle on) -->
         <div class="cat-filter" id="cat-filter" style="display:none;">
-          <span class="cat-label">Filter:</span>
-          <button class="cat-btn" data-cat="armed-conflict">Armed Conflict</button>
-          <button class="cat-btn" data-cat="terrorism">Terrorism</button>
-          <button class="cat-btn" data-cat="political-crisis">Political Crisis</button>
+          <button class="cat-btn" data-cat="armed-conflict">Armed</button>
+          <button class="cat-btn" data-cat="terrorism">Terror</button>
+          <button class="cat-btn" data-cat="political-crisis">Political</button>
           <button class="cat-btn" data-cat="domestic-conflict">Domestic</button>
         </div>
-        <!-- Range selector -->
         <div class="range-btns">
           <button class="range-btn" data-range="1">1Y</button>
           <button class="range-btn" data-range="3">3Y</button>
@@ -478,32 +504,32 @@
     </div>
   </div>
 
-  <!-- Info cards -->
-  <div class="section-grid">
+  <!-- Info grid -->
+  <div class="info-grid">
     <div class="info-card">
       <h3>Index Construction</h3>
       <p>GSCI aggregates CAMEO-coded conflict events from GDELT, retaining only events with strictly negative Goldstein scores. Each event is weighted by its absolute severity and normalized by total daily news sources.</p>
       <div class="formula-block">
         <span class="sym">GSCI</span><sub>t</sub> = Σ<sub>i∈C<sub>t</sub></sub> |G<sub>i</sub>| × S<sub>i,t</sub> / N<sub>t</sub>
         <br/><br/>
-        <span style="color:var(--text-dim); font-size:.75rem;">
-          C<sub>t</sub>  = conflict events on day t<br/>
-          |G<sub>i</sub>| = absolute Goldstein weight<br/>
-          S<sub>i,t</sub> = sources reporting event i<br/>
-          N<sub>t</sub>  = total daily sources
+        <span style="color:var(--text-dim); font-size:.72rem;">
+          C<sub>t</sub>  = conflict events on day t (Goldstein &lt; 0)<br/>
+          |G<sub>i</sub>| = absolute Goldstein severity weight<br/>
+          S<sub>i,t</sub> = sources reporting event i on day t<br/>
+          N<sub>t</sub>  = total daily news sources
         </span>
       </div>
     </div>
     <div class="info-card">
-      <h3>Data Sources &amp; Update</h3>
+      <h3>Data &amp; Updates</h3>
       <ul>
-        <li><strong>Data Source:</strong> GDELT Event Stream (100+ languages)</li>
-        <li><strong>Event Taxonomy:</strong> CAMEO conflict categories (Goldstein &lt; 0)</li>
-        <li><strong>Update Schedule:</strong> Every Monday via GitHub Actions</li>
+        <li><strong>Data source:</strong> GDELT Event Stream (100+ languages)</li>
+        <li><strong>Event taxonomy:</strong> CAMEO conflict codes (Goldstein &lt; 0)</li>
+        <li><strong>Update schedule:</strong> Every Monday via GitHub Actions / BigQuery</li>
         <li><strong>Coverage:</strong> March 2015 – present</li>
-        <li><strong>Complement:</strong> GPR Index (Caldara &amp; Iacoviello 2022)</li>
+        <li><strong>Complement:</strong> GPR Index, Caldara &amp; Iacoviello (2022)</li>
       </ul>
-      <div class="legend-row" style="margin-top:16px;">
+      <div class="legend-row">
         <div class="legend-item"><div class="legend-dot" style="background:var(--accent)"></div>Armed Conflict</div>
         <div class="legend-item"><div class="legend-dot" style="background:var(--yellow)"></div>Terrorism</div>
         <div class="legend-item"><div class="legend-dot" style="background:var(--blue)"></div>Political Crisis</div>
@@ -514,55 +540,49 @@
 
   <!-- Footer -->
   <footer class="footer">
-    <div class="footer-text">GSCI · Replication Material · Economics Letters Submission · © 2026</div>
-    <div class="footer-text">Data: GDELT Project · Methodology: Goldstein (1992) · TVP-VAR: Antonakakis et al. (2020)</div>
+    <div class="footer-col">
+      Data: <a href="https://www.gdeltproject.org/" target="_blank">GDELT Project</a> ·
+      Methodology: <a href="https://doi.org/10.1017/S0022381600013346" target="_blank">Goldstein (1992)</a> ·
+      TVP-VAR: <a href="https://doi.org/10.3390/jrfm13040084" target="_blank">Antonakakis et al. (2020)</a>
+    </div>
+    <div class="footer-col">
+      Event annotations generated by Claude AI (Anthropic) · Verify independently via cited sources ·
+      <a href="https://github.com/YOUR_USERNAME/GSCI-Tracker" target="_blank">GitHub</a>
+    </div>
   </footer>
 
-</div><!-- /page -->
+</div>
 
 <script>
-// ─────────────────────────────────────────
-// State
-// ─────────────────────────────────────────
-let allData    = [];   // [{date, gsci}]
-let allEvents  = [];   // from events.json
+// ── State ──
+let allData    = [];
+let allEvents  = [];
 let chart      = null;
 let showEvents = false;
 let activeRange = 'all';
 let activeCats  = new Set(['armed-conflict','terrorism','political-crisis','domestic-conflict']);
 
 const CAT_COLOR = {
-  'armed-conflict':   getComputedStyle(document.documentElement).getPropertyValue('--accent').trim()   || '#e05252',
-  'terrorism':        '#f5c518',
-  'political-crisis': '#4a9eff',
-  'domestic-conflict':'#a78bfa'
+  'armed-conflict':    '#c0392b',
+  'terrorism':         '#a07800',
+  'political-crisis':  '#1a5ea8',
+  'domestic-conflict': '#6b3fa0'
 };
 
-// ─────────────────────────────────────────
-// Boot
-// ─────────────────────────────────────────
+// ── Boot ──
 async function boot() {
-  // Load CSV and events.json in parallel
-  const [eventsRes] = await Promise.all([
-    fetch('events.json').then(r => r.json()).catch(() => []),
-  ]);
+  const eventsRes = await fetch('events.json').then(r => r.json()).catch(() => []);
   allEvents = eventsRes;
 
-  // Parse CSV via PapaParse
   Papa.parse('gsci_data.csv', {
-    download: true,
-    header: true,
-    skipEmptyLines: true,
-    complete: function(results) {
+    download: true, header: true, skipEmptyLines: true,
+    complete(results) {
       allData = results.data
         .filter(r => r.date && r.gsci)
         .map(r => ({ date: r.date, gsci: parseFloat(r.gsci) }));
-
       populateStats();
       buildChart();
       setupControls();
-
-      // Hide loading
       const loader = document.getElementById('loading');
       loader.style.opacity = '0';
       setTimeout(() => loader.style.display = 'none', 400);
@@ -570,20 +590,13 @@ async function boot() {
   });
 }
 
-// ─────────────────────────────────────────
-// Filter data by range
-// ─────────────────────────────────────────
 function filterByRange(data, range) {
   if (range === 'all') return data;
-  const years = parseInt(range);
   const cutoff = new Date();
-  cutoff.setFullYear(cutoff.getFullYear() - years);
+  cutoff.setFullYear(cutoff.getFullYear() - parseInt(range));
   return data.filter(d => new Date(d.date) >= cutoff);
 }
 
-// ─────────────────────────────────────────
-// Stats
-// ─────────────────────────────────────────
 function populateStats() {
   if (!allData.length) return;
   const vals  = allData.map(d => d.gsci);
@@ -592,8 +605,8 @@ function populateStats() {
   const mean   = vals.reduce((a,b)=>a+b,0)/vals.length;
   const maxVal = Math.max(...vals);
   const maxDate = allData.find(d => d.gsci === maxVal)?.date;
+  const chg = (latest.gsci - prev30.gsci) / prev30.gsci * 100;
 
-  const chg = ((latest.gsci - prev30.gsci) / prev30.gsci * 100);
   const chgEl = document.getElementById('stat-change');
   chgEl.textContent = (chg>=0?'+':'')+chg.toFixed(1)+'%';
   chgEl.classList.toggle('up', chg > 2);
@@ -607,28 +620,15 @@ function populateStats() {
   document.getElementById('stat-obs').textContent         = allData.length.toLocaleString();
 }
 
-// ─────────────────────────────────────────
-// Build / Rebuild Chart
-// ─────────────────────────────────────────
 function buildChart() {
   const filtered = filterByRange(allData, activeRange);
   const labels   = filtered.map(d => d.date);
   const values   = filtered.map(d => d.gsci);
-
-  // Mean line
-  const mean = values.reduce((a,b)=>a+b,0)/values.length;
+  const mean     = values.reduce((a,b)=>a+b,0)/values.length;
   const meanLine = values.map(() => mean);
 
-  // Determine label decimation: show ~12 x-axis labels
-  const N = labels.length;
-  const step = Math.max(1, Math.floor(N/12));
-
   const ctx = document.getElementById('gsciChart').getContext('2d');
-
   if (chart) { chart.destroy(); }
-
-  // Build annotation plugins for events
-  const eventAnnotations = buildEventAnnotations(filtered);
 
   chart = new Chart(ctx, {
     type: 'line',
@@ -638,50 +638,42 @@ function buildChart() {
         {
           label: 'GSCI',
           data: values,
-          borderColor: '#e05252',
+          borderColor: '#c0392b',
           backgroundColor: (ctx) => {
-            const gradient = ctx.chart.ctx.createLinearGradient(0, 0, 0, ctx.chart.height);
-            gradient.addColorStop(0,   'rgba(224,82,82,0.18)');
-            gradient.addColorStop(1,   'rgba(224,82,82,0)');
-            return gradient;
+            const g = ctx.chart.ctx.createLinearGradient(0, 0, 0, ctx.chart.height);
+            g.addColorStop(0, 'rgba(192,57,43,0.12)');
+            g.addColorStop(1, 'rgba(192,57,43,0)');
+            return g;
           },
           borderWidth: 1.5,
-          pointRadius: 0,
-          pointHoverRadius: 4,
-          pointHoverBackgroundColor: '#e05252',
-          fill: true,
-          tension: 0.3,
-          order: 1
+          pointRadius: 0, pointHoverRadius: 4,
+          pointHoverBackgroundColor: '#c0392b',
+          fill: true, tension: 0.3, order: 1
         },
         {
           label: 'Mean',
           data: meanLine,
-          borderColor: 'rgba(255,255,255,0.15)',
-          borderWidth: 1,
-          borderDash: [4, 4],
-          pointRadius: 0,
-          fill: false,
-          tension: 0,
-          order: 2
+          borderColor: 'rgba(60,55,50,0.25)',
+          borderWidth: 1, borderDash: [4, 5],
+          pointRadius: 0, fill: false, tension: 0, order: 2
         }
       ]
     },
     options: {
-      responsive: true,
-      maintainAspectRatio: false,
-      animation: { duration: 400, easing: 'easeOutQuart' },
+      responsive: true, maintainAspectRatio: false,
+      animation: { duration: 350, easing: 'easeOutQuart' },
       interaction: { intersect: false, mode: 'index' },
       plugins: {
         legend: { display: false },
         tooltip: {
-          backgroundColor: '#13161d',
-          borderColor: '#1e2230',
+          backgroundColor: '#fff',
+          borderColor: '#ddd9d0',
           borderWidth: 1,
-          titleFont: { family: "'IBM Plex Mono', monospace", size: 11 },
+          titleFont: { family: "'IBM Plex Mono', monospace", size: 10 },
           bodyFont:  { family: "'IBM Plex Mono', monospace", size: 12 },
-          titleColor: '#6b7394',
-          bodyColor:  '#eaecf0',
-          padding: 12,
+          titleColor: '#8c8478',
+          bodyColor:  '#1a1916',
+          padding: 11,
           callbacks: {
             title: (items) => items[0].label,
             label: (item) => {
@@ -694,25 +686,23 @@ function buildChart() {
       },
       scales: {
         x: {
-          grid: { color: 'rgba(255,255,255,0.04)' },
-          border: { color: '#1e2230' },
+          grid: { color: 'rgba(0,0,0,0.04)' },
+          border: { color: '#ddd9d0' },
           ticks: {
-            font: { family: "'IBM Plex Mono', monospace", size: 10 },
-            color: '#6b7394',
-            maxTicksLimit: 14,
-            maxRotation: 0,
-            callback: function(val, idx) {
+            font: { family: "'IBM Plex Mono', monospace", size: 9 },
+            color: '#8c8478', maxTicksLimit: 13, maxRotation: 0,
+            callback(val) {
               const label = this.getLabelForValue(val);
               return label ? label.substring(0,7) : '';
             }
           }
         },
         y: {
-          grid: { color: 'rgba(255,255,255,0.04)' },
-          border: { color: '#1e2230' },
+          grid: { color: 'rgba(0,0,0,0.04)' },
+          border: { color: '#ddd9d0' },
           ticks: {
-            font: { family: "'IBM Plex Mono', monospace", size: 10 },
-            color: '#6b7394',
+            font: { family: "'IBM Plex Mono', monospace", size: 9 },
+            color: '#8c8478',
             callback: v => v.toFixed(2)
           }
         }
@@ -720,25 +710,22 @@ function buildChart() {
     }
   });
 
-  // Draw event annotations manually (after chart renders)
-  if (showEvents && eventAnnotations.length) {
-    requestAnimationFrame(() => drawEventLines(filtered, eventAnnotations));
+  if (showEvents) {
+    requestAnimationFrame(() => {
+      const ann = buildEventAnnotations(filtered);
+      if (ann.length) drawEventLines(filtered, ann);
+    });
   }
 }
 
-// ─────────────────────────────────────────
-// Event Annotations (drawn on canvas overlay)
-// ─────────────────────────────────────────
 function buildEventAnnotations(filteredData) {
   if (!showEvents || !allEvents.length || !filteredData.length) return [];
-  const dateSet = new Set(filteredData.map(d => d.date));
   const firstDate = new Date(filteredData[0].date);
   const lastDate  = new Date(filteredData[filteredData.length-1].date);
-
   return allEvents.filter(ev => {
     if (!activeCats.has(ev.category)) return false;
-    const evDate = new Date(ev.date);
-    return evDate >= firstDate && evDate <= lastDate;
+    const d = new Date(ev.date);
+    return d >= firstDate && d <= lastDate;
   });
 }
 
@@ -749,49 +736,42 @@ function drawEventLines(filteredData, annotations) {
   const meta = chart.getDatasetMeta(0);
   if (!meta.data.length) return;
 
-  // Build date → pixel X map
   const dateToX = {};
   filteredData.forEach((d, i) => {
     if (meta.data[i]) dateToX[d.date] = meta.data[i].x;
   });
-
   const chartArea = chart.chartArea;
 
   annotations.forEach(ev => {
-    // Find closest date
-    const evDate = ev.date;
     let closestKey = null, minDiff = Infinity;
     filteredData.forEach(d => {
-      const diff = Math.abs(new Date(d.date) - new Date(evDate));
+      const diff = Math.abs(new Date(d.date) - new Date(ev.date));
       if (diff < minDiff) { minDiff = diff; closestKey = d.date; }
     });
-    if (!closestKey || !dateToX[closestKey]) return;
-
+    if (!closestKey || dateToX[closestKey] == null) return;
     const x = dateToX[closestKey];
-    const color = CAT_COLOR[ev.category] || '#fff';
+    const color = CAT_COLOR[ev.category] || '#999';
 
     ctx2.save();
     ctx2.strokeStyle = color;
     ctx2.lineWidth = 1;
     ctx2.setLineDash([3, 4]);
-    ctx2.globalAlpha = 0.55;
+    ctx2.globalAlpha = 0.45;
     ctx2.beginPath();
     ctx2.moveTo(x, chartArea.top);
     ctx2.lineTo(x, chartArea.bottom);
     ctx2.stroke();
-
-    // Small dot at top
     ctx2.setLineDash([]);
-    ctx2.globalAlpha = 0.9;
+    ctx2.globalAlpha = 0.85;
     ctx2.fillStyle = color;
     ctx2.beginPath();
-    ctx2.arc(x, chartArea.top + 6, 4, 0, Math.PI * 2);
+    ctx2.arc(x, chartArea.top + 6, 3.5, 0, Math.PI * 2);
     ctx2.fill();
     ctx2.restore();
   });
 }
 
-// Redraw annotations when chart updates
+// Hook into Chart.js draw cycle
 const _origDraw = Chart.prototype.draw;
 Chart.prototype.draw = function() {
   _origDraw.call(this);
@@ -802,27 +782,21 @@ Chart.prototype.draw = function() {
   }
 };
 
-// ─────────────────────────────────────────
-// Event popup on mousemove
-// ─────────────────────────────────────────
+// ── Event hover popup ──
 function setupEventHover() {
   const canvas = document.getElementById('gsciChart');
   const popup  = document.getElementById('event-popup');
 
   canvas.addEventListener('mousemove', (e) => {
     if (!showEvents || !chart) { popup.style.display = 'none'; return; }
-    const rect = canvas.getBoundingClientRect();
+    const rect   = canvas.getBoundingClientRect();
     const mouseX = e.clientX - rect.left;
-
     const filtered = filterByRange(allData, activeRange);
     const ann = buildEventAnnotations(filtered);
     if (!ann.length) { popup.style.display = 'none'; return; }
 
     const meta = chart.getDatasetMeta(0);
-    const chartArea = chart.chartArea;
-
-    // Find closest annotation to mouse
-    let closest = null, minDist = 12; // px threshold
+    let closest = null, minDist = 14;
     ann.forEach(ev => {
       let closestKey = null, minDiff = Infinity;
       filtered.forEach(d => {
@@ -832,25 +806,37 @@ function setupEventHover() {
       if (!closestKey) return;
       const idx = filtered.findIndex(d => d.date === closestKey);
       if (idx < 0 || !meta.data[idx]) return;
-      const x = meta.data[idx].x;
-      const dist = Math.abs(mouseX - x);
+      const dist = Math.abs(mouseX - meta.data[idx].x);
       if (dist < minDist) { minDist = dist; closest = ev; }
     });
 
     if (closest) {
-      const color = CAT_COLOR[closest.category] || '#fff';
+      const color = CAT_COLOR[closest.category] || '#999';
       document.getElementById('ep-date').textContent  = closest.date;
       document.getElementById('ep-title').textContent = closest.label;
       document.getElementById('ep-desc').textContent  = closest.description;
       const catEl = document.getElementById('ep-cat');
       catEl.textContent = closest.category.replace(/-/g,' ');
       catEl.style.color = color;
-      catEl.style.background = color + '18';
-      catEl.style.border = '1px solid ' + color + '44';
+      catEl.style.background = color + '14';
+      catEl.style.borderColor = color + '40';
+      catEl.style.border = '1px solid ' + color + '40';
 
-      // Position popup
+      const srcEl = document.getElementById('ep-source');
+      if (closest.source_url && closest.source_label) {
+        srcEl.textContent = '↗ ' + closest.source_label;
+        srcEl.href = closest.source_url;
+        srcEl.style.display = 'inline';
+        // Make popup clickable temporarily
+        popup.style.pointerEvents = 'auto';
+      } else {
+        srcEl.style.display = 'none';
+        popup.style.pointerEvents = 'none';
+      }
+
       let px = e.clientX + 16, py = e.clientY - 20;
-      if (px + 290 > window.innerWidth) px = e.clientX - 300;
+      if (px + 285 > window.innerWidth) px = e.clientX - 295;
+      if (py + 160 > window.innerHeight) py = e.clientY - 170;
       popup.style.left = px + 'px';
       popup.style.top  = py + 'px';
       popup.style.display = 'block';
@@ -860,15 +846,17 @@ function setupEventHover() {
   });
 
   canvas.addEventListener('mouseleave', () => {
-    document.getElementById('event-popup').style.display = 'none';
+    // Small delay so user can click the source link
+    setTimeout(() => { document.getElementById('event-popup').style.display = 'none'; }, 300);
+  });
+
+  popup.addEventListener('mouseleave', () => {
+    popup.style.display = 'none';
   });
 }
 
-// ─────────────────────────────────────────
-// Controls
-// ─────────────────────────────────────────
+// ── Controls ──
 function setupControls() {
-  // Range buttons
   document.querySelectorAll('.range-btn').forEach(btn => {
     btn.addEventListener('click', () => {
       document.querySelectorAll('.range-btn').forEach(b => b.classList.remove('active'));
@@ -878,7 +866,6 @@ function setupControls() {
     });
   });
 
-  // Event toggle
   const toggleWrap  = document.getElementById('event-toggle-wrap');
   const toggleTrack = document.getElementById('toggle-track');
   const catFilter   = document.getElementById('cat-filter');
@@ -890,17 +877,11 @@ function setupControls() {
     buildChart();
   });
 
-  // Category filter buttons
   document.querySelectorAll('.cat-btn').forEach(btn => {
     const cat = btn.dataset.cat;
     btn.addEventListener('click', () => {
-      if (activeCats.has(cat)) {
-        activeCats.delete(cat);
-        btn.classList.add('disabled');
-      } else {
-        activeCats.add(cat);
-        btn.classList.remove('disabled');
-      }
+      if (activeCats.has(cat)) { activeCats.delete(cat); btn.classList.add('disabled'); }
+      else { activeCats.add(cat); btn.classList.remove('disabled'); }
       buildChart();
     });
   });
@@ -908,9 +889,6 @@ function setupControls() {
   setupEventHover();
 }
 
-// ─────────────────────────────────────────
-// Go!
-// ─────────────────────────────────────────
 boot();
 </script>
 </body>
