@@ -5,7 +5,7 @@ on:
     - cron: '0 0 * * 1' # Runs every Monday at 00:00 UTC
   workflow_dispatch: # Allows manual trigger for testing
 
-# 明确声明需要写权限
+# Explicitly grant write permissions to the bot
 permissions:
   contents: write
 
@@ -14,10 +14,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v4 # 更新到 v4 以支持 Node.js 24
+        uses: actions/checkout@v4
 
       - name: Set up Python
-        uses: actions/setup-python@v5 # 更新到 v5
+        uses: actions/setup-python@v5
         with:
           python-version: '3.9'
 
@@ -35,7 +35,7 @@ jobs:
           git config --global user.name "GSCI-Bot"
           git config --global user.email "bot@gsci-research.org"
           git add gsci_data.csv
-          # 检查是否有文件更改，避免没有新数据时报错
+          # Only commit if there are changes to avoid error 128
           if git diff --staged --quiet; then
             echo "No changes to commit"
           else
