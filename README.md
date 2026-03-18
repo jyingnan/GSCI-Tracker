@@ -265,7 +265,7 @@ GSCI 被设计为 Caldara 和 Iacoviello（2022）GPR 指数的**事件侧补充
 
 如在研究中使用 GSCI 数据，请引用：
 
-> [作者]. "From Ten Newspapers to the World: An Event-Based Conflict Intensity Index." *Working Paper*, 2025. GitHub: [https://github.com/jyingnan/GSCI-Tracker](https://github.com/jyingnan/GSCI-Tracker)
+> [作者]. "From Ten Newspapers to the World: An Event-Based Conflict Intensity Index." *Working Paper*, 2026. GitHub: [https://github.com/jyingnan/GSCI-Tracker](https://github.com/jyingnan/GSCI-Tracker)
 
 如直接引用数据集：
 
