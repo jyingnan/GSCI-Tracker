@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <title>GSCI 全球衝突強度指數 - 即時監測</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
+    <style>
+        body { font-family: -apple-system, sans-serif; max-width: 900px; margin: 40px auto; padding: 0 20px; color: #333; }
+        .header { text-align: center; margin-bottom: 50px; }
+        .chart-container { position: relative; height: 50vh; width: 100%; }
+        .info { background: #f8f9fa; padding: 20px; border-radius: 8px; margin-top: 30px; line-height: 1.6; }
+        .footer { margin-top: 50px; font-size: 0.8em; color: #666; text-align: center; }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <h1>全球衝突強度指數 (GSCI)</h1>
+    <p>基於 GDELT 大數據的即時事件監測</p>
+</div>
+
+<div class="chart-container">
+    <canvas id="gsciChart"></canvas>
+</div>
+
+<div class="info">
+    <h3>關於 GSCI</h3>
+    <p>GSCI (Global Severity-weighted Conflict Index) 是一個補充 GPR 指數的工具。它不依賴報紙的社論敘事，而是直接從全球 100 多種語言的新聞流中，提取具有負面 Goldstein 分數的衝突事件，並根據事件嚴重程度進行加權計算。</p>
+    <p><strong>更新頻率：</strong> 每週一自動更新</p>
+</div>
+
+<div class="footer">
+    <p>建議引用: [Your Name], (2026). Digital Assets as a State-Dependent Safe Haven...</p>
+</div>
+
+<script>
+    // 自動讀取同目錄下的 csv 檔案
+    Papa.parse("gsci_data.csv", {
+        download: true,
+        header: true,
+        complete: function(results) {
+            const data = results.data.filter(row => row.date);
+            const labels = data.map(row => row.date);
+            const values = data.map(row => parseFloat(row.gsci));
+
+            const ctx = document.getElementById('gsciChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'GSCI 指數值',
+                        data: values,
+                        borderColor: '#e63946',
+                        backgroundColor: 'rgba(230, 57, 70, 0.1)',
+                        borderWidth: 2,
+                        fill: true,
+                        pointRadius: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: { title: { display: true, text: '日期' } },
+                        y: { title: { display: true, text: '指數強度' } }
+                    }
+                }
+            });
+        }
+    });
+</script>
+</body>
+</html>
