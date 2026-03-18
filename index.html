@@ -596,23 +596,62 @@ function catColor(cat) {
 // Boot
 // ══════════════════════════════════════════════════
 async function boot() {
-  const eventsRes = await fetch('events.json').then(r => r.json()).catch(() => []);
-  allEvents = eventsRes;
-
-  Papa.parse('gsci_data.csv', {
-    download: true, header: true, skipEmptyLines: true,
-    complete(results) {
-      allData = results.data
-        .filter(r => r.date && r.gsci)
-        .map(r => ({ date: r.date, gsci: parseFloat(r.gsci) }));
-      populateStats();
-      buildChart();
-      setupControls();
-      const loader = document.getElementById('loading');
-      loader.style.opacity = '0';
-      setTimeout(() => loader.style.display = 'none', 400);
+  // Try fetching a URL; return response text or null (never throws)
+  async function tryFetch(url) {
+    try {
+      console.log('[GSCI] Fetching:', url);
+      const r = await fetch(url);
+      if (r.ok) { console.log('[GSCI] OK:', url); return await r.text(); }
+      console.warn('[GSCI] HTTP', r.status, url);
+    } catch (e) {
+      console.warn('[GSCI] Fetch error:', url, e.message);
     }
-  });
+    return null;
+  }
+
+  // ── Events JSON (optional — missing events just means no annotations) ──
+  const eventsText = await tryFetch('events.json');
+  try {
+    allEvents = eventsText ? JSON.parse(eventsText) : [];
+    console.log('[GSCI] Events loaded:', allEvents.length);
+  } catch (e) {
+    console.warn('[GSCI] events.json parse error:', e.message);
+    allEvents = [];
+  }
+
+  // ── CSV (required) ──
+  const csvText = await tryFetch('gsci_data.csv');
+
+  if (!csvText) {
+    console.error('[GSCI] gsci_data.csv failed to load');
+    document.getElementById('loading').innerHTML = `
+      <div style="text-align:center;padding:32px;max-width:460px;font-family:'IBM Plex Mono',monospace">
+        <div style="font-size:13px;color:#c0392b;margin-bottom:18px;letter-spacing:.04em">⚠ DATA NOT FOUND</div>
+        <div style="font-size:11px;color:#6b7280;line-height:2">
+          <b style="color:#374151">gsci_data.csv</b> could not be loaded.<br><br>
+          Make sure all three files are in the repo root and GitHub Pages is enabled:<br>
+          <code style="background:#f3f4f6;padding:2px 7px;border-radius:3px">index.html</code> &nbsp;
+          <code style="background:#f3f4f6;padding:2px 7px;border-radius:3px">gsci_data.csv</code> &nbsp;
+          <code style="background:#f3f4f6;padding:2px 7px;border-radius:3px">events.json</code><br><br>
+          Check the browser console (F12) for details.
+        </div>
+      </div>`;
+    return;
+  }
+
+  const parsed = Papa.parse(csvText.trim(), { header: true, skipEmptyLines: true });
+  allData = parsed.data
+    .filter(r => r.date && r.gsci)
+    .map(r => ({ date: r.date, gsci: parseFloat(r.gsci) }));
+
+  console.log('[GSCI] CSV rows loaded:', allData.length);
+
+  populateStats();
+  buildChart();
+  setupControls();
+  const loader = document.getElementById('loading');
+  loader.style.opacity = '0';
+  setTimeout(() => loader.style.display = 'none', 400);
 }
 
 // ══════════════════════════════════════════════════
