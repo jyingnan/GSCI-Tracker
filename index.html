@@ -550,11 +550,25 @@
 
 <script>
 // ══════════════════════════════════════════════════
+// State  (declared first — referenced by theme code below)
+// ══════════════════════════════════════════════════
+let allData    = [];
+let allEvents  = [];
+let chart      = null;
+let showEvents = false;
+let activeRange = 'all';
+let activeCats  = new Set(['armed-conflict','terrorism','political-crisis','domestic-conflict']);
+
+// ══════════════════════════════════════════════════
 // Theme
 // ══════════════════════════════════════════════════
 const html = document.documentElement;
 const themeBtn = document.getElementById('theme-toggle');
 let currentTheme = localStorage.getItem('gsci-theme') || 'light';
+
+function getCSSVar(name) {
+  return getComputedStyle(html).getPropertyValue(name).trim();
+}
 
 function applyTheme(t) {
   currentTheme = t;
@@ -566,20 +580,6 @@ function applyTheme(t) {
 
 themeBtn.addEventListener('click', () => applyTheme(currentTheme === 'light' ? 'dark' : 'light'));
 applyTheme(currentTheme);
-
-function getCSSVar(name) {
-  return getComputedStyle(html).getPropertyValue(name).trim();
-}
-
-// ══════════════════════════════════════════════════
-// State
-// ══════════════════════════════════════════════════
-let allData    = [];
-let allEvents  = [];
-let chart      = null;
-let showEvents = false;
-let activeRange = 'all';
-let activeCats  = new Set(['armed-conflict','terrorism','political-crisis','domestic-conflict']);
 
 // Category colours — resolved from CSS vars at draw time
 function catColor(cat) {
