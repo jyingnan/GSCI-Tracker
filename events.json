@@ -3,144 +3,256 @@
     "date": "2015-03-26",
     "label": "Yemen War Begins",
     "description": "Saudi-led coalition launches airstrikes in Yemen, beginning a prolonged civil conflict.",
-    "category": "armed-conflict"
-  },
-  {
-    "date": "2015-10-03",
-    "label": "Kunduz Hospital Airstrike",
-    "description": "U.S. airstrike destroys MSF hospital in Kunduz, Afghanistan.",
-    "category": "armed-conflict"
+    "category": "armed-conflict",
+    "source_label": "Wikipedia",
+    "source_url": "https://en.wikipedia.org/wiki/Yemeni_civil_war_(2014%E2%80%93present)"
   },
   {
     "date": "2015-11-13",
     "label": "Paris Terror Attacks",
-    "description": "ISIS-coordinated attacks kill 130 people across Paris, France.",
-    "category": "terrorism"
+    "description": "ISIS-coordinated attacks kill 130 people across multiple locations in Paris, France.",
+    "category": "terrorism",
+    "source_label": "BBC News",
+    "source_url": "https://www.bbc.com/news/world-europe-34818994"
   },
   {
     "date": "2016-07-15",
     "label": "Turkey Coup Attempt",
     "description": "Failed military coup attempt in Turkey; government declares state of emergency.",
-    "category": "political-crisis"
-  },
-  {
-    "date": "2016-07-08",
-    "label": "Dallas Police Shooting",
-    "description": "Sniper kills five police officers in Dallas during a Black Lives Matter protest.",
-    "category": "domestic-conflict"
+    "category": "political-crisis",
+    "source_label": "Wikipedia",
+    "source_url": "https://en.wikipedia.org/wiki/2016_Turkish_coup_d%27%C3%A9tat_attempt"
   },
   {
     "date": "2017-04-07",
     "label": "U.S. Strikes Syria",
-    "description": "U.S. launches 59 Tomahawk missiles at Syrian airbase in response to chemical weapons attack.",
-    "category": "armed-conflict"
+    "description": "U.S. launches 59 Tomahawk missiles at a Syrian airbase in response to a chemical weapons attack on civilians.",
+    "category": "armed-conflict",
+    "source_label": "Wikipedia",
+    "source_url": "https://en.wikipedia.org/wiki/2017_Shayrat_missile_strike"
   },
   {
     "date": "2018-04-14",
     "label": "Allied Strikes on Syria",
-    "description": "U.S., UK, and France launch coordinated strikes on Syrian chemical weapons sites.",
-    "category": "armed-conflict"
+    "description": "U.S., UK, and France launch coordinated strikes on Syrian chemical weapons sites in response to the Douma attack.",
+    "category": "armed-conflict",
+    "source_label": "Wikipedia",
+    "source_url": "https://en.wikipedia.org/wiki/2018_missile_strikes_against_Syria"
+  },
+  {
+    "date": "2018-05-09",
+    "label": "U.S. Withdraws from JCPOA",
+    "description": "Trump unilaterally withdraws the U.S. from the Iran nuclear deal and reimposed sanctions. GPRT surges on nuclear risk vocabulary; GSCI remains low as no conflict events recorded.",
+    "category": "political-crisis",
+    "source_label": "BBC News",
+    "source_url": "https://www.bbc.com/news/world-us-canada-44046904"
   },
   {
     "date": "2019-03-15",
     "label": "Christchurch Mosque Shootings",
     "description": "Terrorist attack on two mosques in Christchurch, New Zealand kills 51 people.",
-    "category": "terrorism"
+    "category": "terrorism",
+    "source_label": "Wikipedia",
+    "source_url": "https://en.wikipedia.org/wiki/Christchurch_mosque_shootings"
   },
   {
     "date": "2019-09-14",
     "label": "Saudi Aramco Attacks",
-    "description": "Drone and missile strikes knock out ~5% of global oil supply; Iran blamed.",
-    "category": "armed-conflict"
+    "description": "Drone and missile strikes on Saudi Aramco facilities knock out approximately 5% of global oil supply; U.S. and Saudi Arabia blame Iran.",
+    "category": "armed-conflict",
+    "source_label": "Wikipedia",
+    "source_url": "https://en.wikipedia.org/wiki/2019_Abqaiq%E2%80%93Khurais_attack"
+  },
+  {
+    "date": "2019-10-27",
+    "label": "al-Baghdadi Killed",
+    "description": "U.S. Delta Force raid kills ISIS leader Abu Bakr al-Baghdadi in Barisha, Syria. GSCI records a high-severity cross-border event; GPRT near-minimum as Western media frames it as a security success.",
+    "category": "armed-conflict",
+    "source_label": "Wikipedia",
+    "source_url": "https://en.wikipedia.org/wiki/Death_of_Abu_Bakr_al-Baghdadi"
   },
   {
     "date": "2020-01-03",
     "label": "Soleimani Assassination",
-    "description": "U.S. drone strike kills Iranian General Qasem Soleimani near Baghdad airport.",
-    "category": "armed-conflict"
+    "description": "U.S. drone strike kills Iranian General Qasem Soleimani near Baghdad airport. GSCI hits sample maximum (3.354) as global conflict intensity peaks.",
+    "category": "armed-conflict",
+    "source_label": "Wikipedia",
+    "source_url": "https://en.wikipedia.org/wiki/Assassination_of_Qasem_Soleimani"
+  },
+  {
+    "date": "2020-01-07",
+    "label": "Post-Soleimani GPRT Peak",
+    "description": "Newspapers flood with analysis of potential Iranian retaliation and nuclear escalation risks. GPRT reaches its peak while no new large-scale conflict event is recorded — a pure anticipatory risk narrative (Panel C event in the paper).",
+    "category": "political-crisis",
+    "source_label": "Caldara & Iacoviello (2022)",
+    "source_url": "https://www.matteoiacoviello.com/gpr.htm"
   },
   {
     "date": "2020-05-31",
     "label": "George Floyd Protests Peak",
-    "description": "Over 200 U.S. cities under curfew following the death of George Floyd on May 25.",
-    "category": "domestic-conflict"
+    "description": "Over 200 U.S. cities under curfew following the death of George Floyd on May 25. GDELT records mass-scale domestic conflict events globally; GPRT remains low as its methodology targets international geopolitical terminology.",
+    "category": "domestic-conflict",
+    "source_label": "Wikipedia",
+    "source_url": "https://en.wikipedia.org/wiki/George_Floyd_protests"
   },
   {
     "date": "2021-01-06",
     "label": "U.S. Capitol Storming",
-    "description": "Pro-Trump rioters breach the U.S. Capitol building during the Electoral College certification.",
-    "category": "political-crisis"
+    "description": "Pro-Trump rioters breach the U.S. Capitol building during the Electoral College certification vote.",
+    "category": "political-crisis",
+    "source_label": "Wikipedia",
+    "source_url": "https://en.wikipedia.org/wiki/2021_United_States_Capitol_attack"
   },
   {
     "date": "2021-08-15",
     "label": "Kabul Falls to Taliban",
     "description": "Taliban seize Kabul; Afghan government collapses as U.S. completes withdrawal.",
-    "category": "armed-conflict"
+    "category": "armed-conflict",
+    "source_label": "Wikipedia",
+    "source_url": "https://en.wikipedia.org/wiki/Fall_of_Kabul_(2021)"
+  },
+  {
+    "date": "2022-01-27",
+    "label": "Russia-Ukraine Tension Peak (Pre-invasion)",
+    "description": "U.S. intelligence publicly assesses a Russian invasion as imminent. Extensive newspaper risk commentary. GSCI is below the 25th percentile as no military engagement has occurred (Panel C event in the paper).",
+    "category": "political-crisis",
+    "source_label": "Wikipedia",
+    "source_url": "https://en.wikipedia.org/wiki/Prelude_to_the_2022_Russian_invasion_of_Ukraine"
   },
   {
     "date": "2022-02-24",
     "label": "Russia Invades Ukraine",
-    "description": "Russia launches full-scale invasion of Ukraine across multiple fronts.",
-    "category": "armed-conflict"
+    "description": "Russia launches a full-scale invasion of Ukraine across multiple fronts. Both GSCI and GPRT are simultaneously elevated.",
+    "category": "armed-conflict",
+    "source_label": "Wikipedia",
+    "source_url": "https://en.wikipedia.org/wiki/2022_Russian_invasion_of_Ukraine"
   },
   {
     "date": "2023-10-07",
     "label": "Hamas Attack on Israel",
-    "description": "Hamas launches surprise attack from Gaza; ~1,200 Israelis killed, 250 taken hostage.",
-    "category": "armed-conflict"
+    "description": "Hamas launches a surprise attack from Gaza; approximately 1,200 Israelis killed, 250 taken hostage. GSCI records extreme conflict intensity on the day of the attack; GPRT is below the sample median as newspaper risk vocabulary had not yet fully escalated (Panel B event in the paper).",
+    "category": "armed-conflict",
+    "source_label": "Wikipedia",
+    "source_url": "https://en.wikipedia.org/wiki/2023_Hamas-led_attack_on_Israel"
   },
   {
-    "date": "2023-10-17",
-    "label": "Gaza Hospital Blast",
-    "description": "Explosion at Al-Ahli hospital in Gaza kills hundreds; both sides trade blame.",
-    "category": "armed-conflict"
+    "date": "2024-04-01",
+    "label": "Israeli Strike on Iranian Consulate",
+    "description": "Israeli airstrike destroys Iran's consulate in Damascus, killing senior IRGC officers including Mohammad Reza Zahedi. The first direct Israeli strike on Iranian diplomatic premises.",
+    "category": "armed-conflict",
+    "source_label": "Wikipedia",
+    "source_url": "https://en.wikipedia.org/wiki/April_2024_airstrike_in_Damascus"
   },
   {
     "date": "2024-04-14",
-    "label": "Iran Strikes Israel",
-    "description": "Iran launches over 300 drones and missiles at Israeli territory in Operation True Promise.",
-    "category": "armed-conflict"
+    "label": "Iran Strikes Israel (Op. True Promise I)",
+    "description": "Iran fires over 300 drones, cruise and ballistic missiles at Israel — the first direct Iranian strike on Israeli territory in history. Most were intercepted. GSCI spikes; GPRT only moderately elevated as the strike had been widely anticipated (Panel B event).",
+    "category": "armed-conflict",
+    "source_label": "Wikipedia",
+    "source_url": "https://en.wikipedia.org/wiki/Iranian_strikes_on_Israel_(April_2024)"
   },
   {
     "date": "2024-07-14",
     "label": "Trump Assassination Attempt",
-    "description": "Shooter opens fire at Trump campaign rally in Butler, Pennsylvania.",
-    "category": "political-crisis"
+    "description": "Shooter opens fire at Trump campaign rally in Butler, Pennsylvania. GSCI elevated; GPRT well below the 25th percentile as the GPR methodology focuses on international conflict terminology.",
+    "category": "political-crisis",
+    "source_label": "Wikipedia",
+    "source_url": "https://en.wikipedia.org/wiki/Attempted_assassination_of_Donald_Trump_(July_2024)"
   },
   {
     "date": "2024-09-28",
-    "label": "Nasrallah Killed",
-    "description": "Israeli airstrike in Beirut kills Hezbollah leader Hassan Nasrallah.",
-    "category": "armed-conflict"
+    "label": "Hezbollah Leader Nasrallah Killed",
+    "description": "Israeli airstrike in Beirut kills Hezbollah Secretary-General Hassan Nasrallah in his underground bunker.",
+    "category": "armed-conflict",
+    "source_label": "Wikipedia",
+    "source_url": "https://en.wikipedia.org/wiki/Death_of_Hassan_Nasrallah"
   },
   {
     "date": "2024-10-01",
-    "label": "Iran Ballistic Missile Barrage",
-    "description": "Iran fires ~200 ballistic missiles at Israel in Operation True Promise II.",
-    "category": "armed-conflict"
+    "label": "Iran Strikes Israel (Op. True Promise II)",
+    "description": "Iran fires approximately 200 ballistic missiles at Israel. Israel's subsequent counter-strikes destroyed nearly all of Iran's Russian-supplied S-300 air defense systems, paving the way for the 2025 strikes.",
+    "category": "armed-conflict",
+    "source_label": "Wikipedia",
+    "source_url": "https://en.wikipedia.org/wiki/Iranian_strikes_on_Israel_(October_2024)"
   },
   {
     "date": "2024-12-08",
     "label": "Assad Regime Falls",
-    "description": "Syrian President Bashar al-Assad flees as rebel forces capture Damascus.",
-    "category": "political-crisis"
+    "description": "Syrian President Bashar al-Assad flees to Russia as rebel forces capture Damascus, ending 54 years of Assad family rule.",
+    "category": "political-crisis",
+    "source_label": "Wikipedia",
+    "source_url": "https://en.wikipedia.org/wiki/Fall_of_Damascus_(2024)"
   },
   {
     "date": "2025-06-13",
-    "label": "Israel Strikes Iran Nuclear Sites",
-    "description": "Israel launches major strikes on Iranian nuclear and military infrastructure, beginning the Twelve-Day War.",
-    "category": "armed-conflict"
+    "label": "Twelve-Day War Begins (Op. Rising Lion)",
+    "description": "Israel launches Operation Rising Lion: 200+ fighter jets strike 100+ Iranian nuclear and military targets including Natanz. Senior IRGC commanders and nuclear scientists killed. Iran's air defenses are overwhelmed.",
+    "category": "armed-conflict",
+    "source_label": "Wikipedia",
+    "source_url": "https://en.wikipedia.org/wiki/Twelve-Day_War"
+  },
+  {
+    "date": "2025-06-15",
+    "label": "Iran Begins Nightly Missile Barrages",
+    "description": "Iran retaliates with an unprecedented barrage of approximately 900 ballistic missiles and 1,000 armed drones against Israeli cities. Iran fires missiles at Israeli cities of Tel Aviv and Haifa for several consecutive nights.",
+    "category": "armed-conflict",
+    "source_label": "ACLED Analysis",
+    "source_url": "https://acleddata.com/qa/qa-twelve-days-shook-region-inside-iran-israel-war"
+  },
+  {
+    "date": "2025-06-21",
+    "label": "U.S. Joins Twelve-Day War",
+    "description": "The United States enters the conflict, striking Fordow, Natanz and Isfahan nuclear facilities with bunker-buster munitions that only U.S. B-2 bombers could deliver. These were the most hardened sites Israel could not destroy alone.",
+    "category": "armed-conflict",
+    "source_label": "Brookings Institution",
+    "source_url": "https://www.brookings.edu/articles/the-road-to-the-israel-iran-war/"
   },
   {
     "date": "2025-06-23",
-    "label": "Israel–Iran Ceasefire",
-    "description": "U.S.-brokered ceasefire ends the Twelve-Day War between Israel and Iran.",
-    "category": "armed-conflict"
+    "label": "Iran Strikes U.S. Al Udeid Base",
+    "description": "Iran fires missiles at Al Udeid airbase in Qatar, the U.S.'s largest Middle East military installation. Missiles are intercepted with no casualties. Trump announces a ceasefire on Truth Social, coining the term '12-Day War'.",
+    "category": "armed-conflict",
+    "source_label": "Al Jazeera",
+    "source_url": "https://www.aljazeera.com/news/2025/6/26/visualising-12-days-of-the-israel-iran-conflict"
+  },
+  {
+    "date": "2025-06-24",
+    "label": "Twelve-Day War: Ceasefire",
+    "description": "Formal ceasefire brokered by Oman takes effect. Final toll: Iran ~610 killed; Israel 28 killed. 525 Iranian ballistic missiles were launched at Israel during the war; 50–60 struck Israeli territory. GPRT reaches its sample maximum as editorial risk framing surges even as kinetic exchanges cease.",
+    "category": "armed-conflict",
+    "source_label": "Wikipedia",
+    "source_url": "https://en.wikipedia.org/wiki/Twelve-Day_War"
+  },
+  {
+    "date": "2026-02-28",
+    "label": "U.S. & Israel Launch War on Iran (Op. Epic Fury)",
+    "description": "U.S. and Israel launch ~900 strikes in 12 hours (Operation Epic Fury / Roaring Lion) targeting Iran's nuclear program, military, and leadership compound. Supreme Leader Ali Khamenei is killed. Iran retaliates within hours with Operation True Promise IV.",
+    "category": "armed-conflict",
+    "source_label": "Britannica",
+    "source_url": "https://www.britannica.com/event/2026-Iran-Conflict"
   },
   {
     "date": "2026-03-01",
-    "label": "Global Trade War Escalation",
-    "description": "Sweeping U.S. tariff announcements trigger major global trade conflict and retaliatory measures.",
-    "category": "political-crisis"
+    "label": "Iran Regional Missile & Drone Barrage",
+    "description": "By March 5, Iran had fired 500+ ballistic missiles and ~2,000 drones at Israel and U.S. bases across Bahrain, Kuwait, Qatar, UAE, Saudi Arabia, and Iraq. Strait of Hormuz threatened; global oil prices spike past $100/barrel.",
+    "category": "armed-conflict",
+    "source_label": "Wikipedia: 2026 Iran war",
+    "source_url": "https://en.wikipedia.org/wiki/2026_Iran_war"
+  },
+  {
+    "date": "2026-03-03",
+    "label": "Israel Strikes Iranian State Broadcaster & Parliament",
+    "description": "Israel strikes the Islamic Republic of Iran Broadcasting (IRIB) headquarters and Iran's parliament building. Hezbollah enters the conflict, launching missiles and drones into Israel from Lebanon.",
+    "category": "armed-conflict",
+    "source_label": "Wikipedia: Timeline 2026 Iran war",
+    "source_url": "https://en.wikipedia.org/wiki/Timeline_of_the_2026_Iran_war"
+  },
+  {
+    "date": "2026-03-18",
+    "label": "2026 War: Ongoing (Latest Data)",
+    "description": "Conflict enters its 18th day. ACLED has documented nearly 2,000 distinct attack events across 29 of Iran's 31 provinces. More than 2,300 killed across the region. Iran's daily missile launches have declined ~90% from Day 1 peak. No ceasefire in sight.",
+    "category": "armed-conflict",
+    "source_label": "Al Jazeera Map Report",
+    "source_url": "https://www.aljazeera.com/news/2026/3/16/map-shows-how-16-days-of-attacks-have-evolved-in-us-israel-war-on-iran"
   }
 ]
