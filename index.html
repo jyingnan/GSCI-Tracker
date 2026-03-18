@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -7,394 +7,390 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Source+Serif+4:opsz,wght@8..60,300;400;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-    :root {
-      --bg:         #f7f5f0;
+    /* ═══════════════════════════════════════
+       LIGHT THEME
+    ═══════════════════════════════════════ */
+    [data-theme="light"] {
+      --bg:         #f5f6f8;
       --surface:    #ffffff;
-      --surface-2:  #f2efe9;
-      --border:     #ddd9d0;
-      --border-2:   #e8e4de;
-      --text-dim:   #8c8478;
-      --text:       #3d3a34;
-      --text-hi:    #1a1916;
+      --surface-2:  #f9fafb;
+      --surface-3:  #eef0f3;
+      --border:     #e2e5ea;
+      --border-2:   #eceef2;
+      --text-dim:   #8a92a0;
+      --text:       #374151;
+      --text-hi:    #111827;
       --accent:     #c0392b;
-      --accent-lo:  rgba(192,57,43,0.08);
-      --accent-mid: rgba(192,57,43,0.18);
-      --green:      #2d7a4f;
-      --yellow:     #a07800;
-      --blue:       #1a5ea8;
-      --purple:     #6b3fa0;
-      --mono:       'IBM Plex Mono', monospace;
-      --serif:      'Source Serif 4', Georgia, serif;
+      --accent-lo:  rgba(192,57,43,0.07);
+      --green:      #16803c;
+      --yellow:     #92650a;
+      --blue:       #1d5fa8;
+      --purple:     #6435a8;
+      --shadow:     0 1px 4px rgba(0,0,0,.07), 0 4px 16px rgba(0,0,0,.05);
+      --shadow-pop: 0 4px 24px rgba(0,0,0,.13);
+      --tooltip-bg: #ffffff;
+      --tooltip-border: #e2e5ea;
+      --tooltip-title: #8a92a0;
+      --tooltip-body: #111827;
+      --chart-grid: rgba(0,0,0,0.05);
+      --chart-border: #e2e5ea;
+      --chart-tick: #8a92a0;
+      --chart-mean: rgba(55,65,81,0.2);
+      --chart-fill-start: rgba(192,57,43,0.10);
+      --chart-fill-end:   rgba(192,57,43,0);
+      --theme-btn-icon: "☀";
     }
 
+    /* ═══════════════════════════════════════
+       DARK THEME
+    ═══════════════════════════════════════ */
+    [data-theme="dark"] {
+      --bg:         #0d0f14;
+      --surface:    #141720;
+      --surface-2:  #1a1e28;
+      --surface-3:  #1f2433;
+      --border:     #252a38;
+      --border-2:   #1e2230;
+      --text-dim:   #6470888;
+      --text-dim:   #64708e;
+      --text:       #b8c0d0;
+      --text-hi:    #e8ecf4;
+      --accent:     #e05252;
+      --accent-lo:  rgba(224,82,82,0.12);
+      --green:      #3ecf8e;
+      --yellow:     #f0b429;
+      --blue:       #4e9eff;
+      --purple:     #a78bfa;
+      --shadow:     0 1px 4px rgba(0,0,0,.3), 0 4px 16px rgba(0,0,0,.2);
+      --shadow-pop: 0 4px 24px rgba(0,0,0,.55);
+      --tooltip-bg: #1a1e28;
+      --tooltip-border: #252a38;
+      --tooltip-title: #64708e;
+      --tooltip-body: #e8ecf4;
+      --chart-grid: rgba(255,255,255,0.04);
+      --chart-border: #252a38;
+      --chart-tick: #64708e;
+      --chart-mean: rgba(255,255,255,0.15);
+      --chart-fill-start: rgba(224,82,82,0.15);
+      --chart-fill-end:   rgba(224,82,82,0);
+      --theme-btn-icon: "☾";
+    }
+
+    /* ═══════════════════════════════════════
+       BASE
+    ═══════════════════════════════════════ */
     html, body { height: 100%; }
     body {
-      font-family: var(--serif);
+      font-family: 'Inter', -apple-system, sans-serif;
       background: var(--bg);
       color: var(--text);
-      line-height: 1.65;
+      line-height: 1.6;
+      transition: background .25s, color .25s;
     }
 
-    /* ── Layout ── */
-    .page { max-width: 1080px; margin: 0 auto; padding: 48px 24px 80px; }
+    .page { max-width: 1100px; margin: 0 auto; padding: 40px 24px 80px; }
 
-    /* ── Header ── */
-    .header { margin-bottom: 36px; border-bottom: 2px solid var(--text-hi); padding-bottom: 28px; }
-    .header-inner { display: flex; align-items: flex-start; justify-content: space-between; flex-wrap: wrap; gap: 20px; }
+    /* ═══════════════════════════════════════
+       HEADER
+    ═══════════════════════════════════════ */
+    .header {
+      margin-bottom: 28px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid var(--border);
+    }
+    .header-inner {
+      display: flex; align-items: flex-start;
+      justify-content: space-between; flex-wrap: wrap; gap: 16px;
+    }
     .header-left { flex: 1; min-width: 260px; }
     .header-eyebrow {
-      font-family: var(--mono);
-      font-size: 10px;
-      letter-spacing: .18em;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 10px;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 10px; letter-spacing: .16em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 8px;
     }
     .header h1 {
-      font-family: var(--serif);
-      font-size: clamp(1.6rem, 3.5vw, 2.4rem);
-      font-weight: 600;
-      color: var(--text-hi);
-      letter-spacing: -.02em;
-      line-height: 1.15;
+      font-size: clamp(1.5rem, 3vw, 2.1rem);
+      font-weight: 600; color: var(--text-hi);
+      letter-spacing: -.03em; line-height: 1.15;
     }
     .header-subtitle {
-      margin-top: 10px;
-      font-size: .92rem;
-      color: var(--text-dim);
-      font-weight: 300;
-      max-width: 480px;
-      line-height: 1.6;
+      margin-top: 8px; font-size: .875rem;
+      color: var(--text-dim); font-weight: 400;
+      max-width: 500px; line-height: 1.65;
     }
-    .header-right { display: flex; flex-direction: column; align-items: flex-end; gap: 10px; padding-top: 4px; }
-    .header-actions { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; justify-content: flex-end; }
-    .link-btn {
-      font-family: var(--mono);
-      font-size: 11px;
-      letter-spacing: .05em;
-      padding: 7px 14px;
-      border-radius: 3px;
-      text-decoration: none;
-      font-weight: 500;
-      transition: all .15s;
-      display: inline-flex; align-items: center; gap: 6px;
-      white-space: nowrap;
+    .header-right {
+      display: flex; flex-direction: column;
+      align-items: flex-end; gap: 10px; padding-top: 2px;
     }
-    .link-btn:hover { opacity: .8; }
-    .link-btn-outline {
-      color: var(--text);
-      border: 1px solid var(--border);
+    .header-actions { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; justify-content: flex-end; }
+
+    /* Buttons */
+    .btn {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 11px; letter-spacing: .04em;
+      padding: 7px 13px; border-radius: 5px;
+      text-decoration: none; font-weight: 500;
+      transition: all .15s; display: inline-flex;
+      align-items: center; gap: 6px; white-space: nowrap; cursor: pointer;
+      border: none;
+    }
+    .btn-outline {
+      color: var(--text); border: 1px solid var(--border);
       background: var(--surface);
     }
-    .link-btn-outline:hover { border-color: var(--text); }
-    .link-btn-github {
-      color: var(--surface);
-      background: var(--text-hi);
+    .btn-outline:hover { border-color: var(--text-dim); }
+    .btn-dark {
+      color: #fff; background: var(--text-hi);
       border: 1px solid var(--text-hi);
     }
-    .disclaimer-header {
-      font-family: var(--mono);
-      font-size: 10px;
-      color: var(--text-dim);
-      text-align: right;
-      max-width: 320px;
-      line-height: 1.5;
+    .btn-dark:hover { opacity: .85; }
+    /* Theme toggle button */
+    .btn-theme {
+      color: var(--text); border: 1px solid var(--border);
+      background: var(--surface); font-size: 14px;
+      padding: 5px 10px; line-height: 1;
+    }
+    .btn-theme:hover { border-color: var(--text-dim); }
+
+    .header-note {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 9.5px; color: var(--text-dim);
+      text-align: right; max-width: 300px; line-height: 1.55;
     }
 
-    /* ── Stats row ── */
+    /* ═══════════════════════════════════════
+       STATS ROW
+    ═══════════════════════════════════════ */
     .stats-row {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-      gap: 1px;
-      background: var(--border);
-      border: 1px solid var(--border);
-      border-radius: 6px;
-      overflow: hidden;
-      margin-bottom: 20px;
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 1px; background: var(--border);
+      border: 1px solid var(--border); border-radius: 8px;
+      overflow: hidden; margin-bottom: 20px;
+      box-shadow: var(--shadow);
     }
-    .stat-cell { background: var(--surface); padding: 14px 18px; }
+    .stat-cell { background: var(--surface); padding: 14px 18px; transition: background .25s; }
     .stat-label {
-      font-family: var(--mono);
-      font-size: 9px;
-      letter-spacing: .12em;
-      text-transform: uppercase;
-      color: var(--text-dim);
-      margin-bottom: 5px;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 9px; letter-spacing: .12em;
+      text-transform: uppercase; color: var(--text-dim); margin-bottom: 5px;
     }
     .stat-value {
-      font-family: var(--mono);
-      font-size: 1.3rem;
-      font-weight: 500;
-      color: var(--text-hi);
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 1.25rem; font-weight: 500; color: var(--text-hi);
     }
     .stat-value.up   { color: var(--accent); }
     .stat-value.down { color: var(--green); }
-    .stat-meta {
-      font-family: var(--mono);
-      font-size: 9px;
-      color: var(--text-dim);
-      margin-top: 2px;
-    }
+    .stat-meta { font-family: 'IBM Plex Mono', monospace; font-size: 9px; color: var(--text-dim); margin-top: 2px; }
 
-    /* ── Chart card ── */
+    /* ═══════════════════════════════════════
+       CHART CARD
+    ═══════════════════════════════════════ */
     .chart-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 6px;
-      overflow: hidden;
-      margin-bottom: 20px;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 8px; overflow: hidden; margin-bottom: 20px;
+      box-shadow: var(--shadow); transition: background .25s, border-color .25s;
     }
     .chart-toolbar {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 10px;
-      padding: 12px 18px;
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 10px; padding: 11px 18px;
       border-bottom: 1px solid var(--border-2);
-      background: var(--surface-2);
+      background: var(--surface-2); transition: background .25s;
     }
     .toolbar-title {
-      font-family: var(--mono);
-      font-size: 10px;
-      letter-spacing: .1em;
-      text-transform: uppercase;
-      color: var(--text-dim);
+      font-family: 'IBM Plex Mono', monospace; font-size: 10px;
+      letter-spacing: .1em; text-transform: uppercase; color: var(--text-dim);
     }
-    .toolbar-right { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+    .toolbar-right { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
 
     /* Range buttons */
     .range-btns { display: flex; gap: 3px; }
     .range-btn {
-      font-family: var(--mono);
-      font-size: 11px;
-      padding: 4px 10px;
-      background: transparent;
-      border: 1px solid var(--border);
-      color: var(--text-dim);
-      border-radius: 3px;
-      cursor: pointer;
-      transition: all .15s;
+      font-family: 'IBM Plex Mono', monospace; font-size: 11px;
+      padding: 4px 10px; background: transparent;
+      border: 1px solid var(--border); color: var(--text-dim);
+      border-radius: 4px; cursor: pointer; transition: all .15s;
     }
-    .range-btn:hover { border-color: var(--text); color: var(--text); }
+    .range-btn:hover { border-color: var(--text-dim); color: var(--text); }
     .range-btn.active { background: var(--text-hi); border-color: var(--text-hi); color: #fff; }
 
     /* Event toggle */
-    .event-toggle { display: flex; align-items: center; gap: 8px; cursor: pointer; user-select: none; }
+    .event-toggle { display: flex; align-items: center; gap: 7px; cursor: pointer; user-select: none; }
     .toggle-track {
-      width: 34px; height: 18px;
-      background: var(--border);
-      border-radius: 9px;
-      position: relative;
-      transition: background .2s;
-      flex-shrink: 0;
+      width: 34px; height: 18px; background: var(--border);
+      border-radius: 9px; position: relative; transition: background .2s; flex-shrink: 0;
     }
     .toggle-track.on { background: var(--accent); }
     .toggle-thumb {
-      width: 12px; height: 12px;
-      background: #fff;
-      border-radius: 50%;
-      position: absolute;
-      top: 3px; left: 3px;
-      transition: left .2s;
-      box-shadow: 0 1px 3px rgba(0,0,0,.2);
+      width: 12px; height: 12px; background: #fff; border-radius: 50%;
+      position: absolute; top: 3px; left: 3px;
+      transition: left .2s; box-shadow: 0 1px 3px rgba(0,0,0,.25);
     }
     .toggle-track.on .toggle-thumb { left: 19px; }
     .toggle-label {
-      font-family: var(--mono);
-      font-size: 10px;
-      color: var(--text-dim);
-      letter-spacing: .05em;
-      text-transform: uppercase;
+      font-family: 'IBM Plex Mono', monospace; font-size: 10px;
+      color: var(--text-dim); letter-spacing: .05em; text-transform: uppercase;
     }
 
     /* Category filter */
-    .cat-filter { display: flex; gap: 5px; flex-wrap: wrap; align-items: center; }
+    .cat-filter { display: flex; gap: 4px; flex-wrap: wrap; align-items: center; }
     .cat-btn {
-      font-family: var(--mono);
-      font-size: 9px;
-      padding: 3px 8px;
-      border-radius: 3px;
-      border: 1px solid;
-      cursor: pointer;
-      transition: all .15s;
-      letter-spacing: .04em;
-      text-transform: uppercase;
+      font-family: 'IBM Plex Mono', monospace; font-size: 9px;
+      padding: 3px 8px; border-radius: 3px; border: 1px solid;
+      cursor: pointer; transition: all .15s; letter-spacing: .04em; text-transform: uppercase;
     }
-    .cat-btn[data-cat="armed-conflict"]   { color: var(--accent); border-color: rgba(192,57,43,.3); background: rgba(192,57,43,.06); }
-    .cat-btn[data-cat="terrorism"]         { color: var(--yellow); border-color: rgba(160,120,0,.3); background: rgba(160,120,0,.06); }
-    .cat-btn[data-cat="political-crisis"]  { color: var(--blue);   border-color: rgba(26,94,168,.3); background: rgba(26,94,168,.06); }
-    .cat-btn[data-cat="domestic-conflict"] { color: var(--purple); border-color: rgba(107,63,160,.3); background: rgba(107,63,160,.06); }
+    .cat-btn[data-cat="armed-conflict"]   { color: var(--accent); border-color: rgba(192,57,43,.3); background: rgba(192,57,43,.07); }
+    .cat-btn[data-cat="terrorism"]         { color: var(--yellow); border-color: rgba(146,101,10,.3); background: rgba(146,101,10,.07); }
+    .cat-btn[data-cat="political-crisis"]  { color: var(--blue);   border-color: rgba(29,95,168,.3);  background: rgba(29,95,168,.07); }
+    .cat-btn[data-cat="domestic-conflict"] { color: var(--purple); border-color: rgba(100,53,168,.3); background: rgba(100,53,168,.07); }
     .cat-btn.disabled { opacity: .3; }
 
-    /* Chart area */
-    .chart-body { padding: 20px 18px; }
-    .chart-container { position: relative; height: 360px; }
+    [data-theme="dark"] .cat-btn[data-cat="armed-conflict"]   { border-color: rgba(224,82,82,.35);   background: rgba(224,82,82,.10); }
+    [data-theme="dark"] .cat-btn[data-cat="terrorism"]         { border-color: rgba(240,180,41,.35);  background: rgba(240,180,41,.10); }
+    [data-theme="dark"] .cat-btn[data-cat="political-crisis"]  { border-color: rgba(78,158,255,.35);  background: rgba(78,158,255,.10); }
+    [data-theme="dark"] .cat-btn[data-cat="domestic-conflict"] { border-color: rgba(167,139,250,.35); background: rgba(167,139,250,.10); }
 
-    /* ── Event tooltip popup ── */
+    /* Chart body */
+    .chart-body { padding: 20px 18px; }
+    .chart-container { position: relative; height: 370px; }
+
+    /* ═══════════════════════════════════════
+       EVENT POPUP
+       — anchored to page, stays visible
+         while mouse is over canvas OR popup
+    ═══════════════════════════════════════ */
     #event-popup {
       position: fixed;
       display: none;
-      z-index: 200;
+      z-index: 300;
       background: var(--surface);
       border: 1px solid var(--border);
-      border-radius: 5px;
-      padding: 12px 15px;
-      max-width: 270px;
-      pointer-events: none;
-      box-shadow: 0 4px 20px rgba(0,0,0,.12);
+      border-top: 3px solid var(--accent);
+      border-radius: 6px;
+      padding: 13px 15px;
+      width: 280px;
+      box-shadow: var(--shadow-pop);
+      pointer-events: auto;   /* ALWAYS clickable */
+      transition: background .25s, border-color .25s;
     }
-    #event-popup .ep-date {
-      font-family: var(--mono);
-      font-size: 9px;
-      letter-spacing: .1em;
-      color: var(--text-dim);
-      margin-bottom: 4px;
-      text-transform: uppercase;
+    #event-popup.hidden { display: none !important; }
+    .ep-date {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 9px; letter-spacing: .1em; color: var(--text-dim);
+      margin-bottom: 4px; text-transform: uppercase;
     }
-    #event-popup .ep-title {
-      font-weight: 600;
-      font-size: .84rem;
-      color: var(--text-hi);
-      margin-bottom: 5px;
-      font-family: var(--serif);
-      line-height: 1.3;
+    .ep-title {
+      font-weight: 600; font-size: .85rem; color: var(--text-hi);
+      margin-bottom: 5px; line-height: 1.3;
     }
-    #event-popup .ep-desc {
-      font-size: .76rem;
-      color: var(--text-dim);
-      line-height: 1.55;
-      font-family: var(--serif);
-      font-weight: 300;
+    .ep-desc {
+      font-size: .775rem; color: var(--text-dim);
+      line-height: 1.55; font-weight: 400;
     }
-    #event-popup .ep-footer {
-      margin-top: 8px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 8px;
+    .ep-footer {
+      margin-top: 9px; display: flex;
+      align-items: center; justify-content: space-between; gap: 8px;
     }
-    #event-popup .ep-cat {
-      font-family: var(--mono);
-      font-size: 8px;
-      letter-spacing: .08em;
-      text-transform: uppercase;
-      padding: 2px 6px;
-      border-radius: 2px;
+    .ep-cat {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 8px; letter-spacing: .08em; text-transform: uppercase;
+      padding: 2px 6px; border-radius: 3px;
     }
-    #event-popup .ep-source {
-      font-family: var(--mono);
-      font-size: 8px;
-      color: var(--blue);
-      letter-spacing: .04em;
+    .ep-source {
+      font-family: 'IBM Plex Mono', monospace; font-size: 9px;
+      color: var(--blue); letter-spacing: .04em;
+      text-decoration: none; white-space: nowrap;
     }
+    .ep-source:hover { text-decoration: underline; }
 
-    /* ── Info grid ── */
+    /* ═══════════════════════════════════════
+       INFO GRID
+    ═══════════════════════════════════════ */
     .info-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 16px;
-      margin-bottom: 20px;
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 16px; margin-bottom: 20px;
     }
     @media(max-width: 600px) { .info-grid { grid-template-columns: 1fr; } }
     .info-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 6px;
-      padding: 20px;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 8px; padding: 20px; box-shadow: var(--shadow);
+      transition: background .25s, border-color .25s;
     }
     .info-card h3 {
-      font-family: var(--mono);
-      font-size: 9px;
-      letter-spacing: .14em;
-      text-transform: uppercase;
-      color: var(--text-dim);
-      margin-bottom: 12px;
-      padding-bottom: 8px;
+      font-family: 'IBM Plex Mono', monospace; font-size: 9px;
+      letter-spacing: .14em; text-transform: uppercase; color: var(--text-dim);
+      margin-bottom: 12px; padding-bottom: 8px;
       border-bottom: 1px solid var(--border-2);
     }
-    .info-card p, .info-card li {
-      font-size: .85rem;
-      color: var(--text);
-      line-height: 1.7;
-      font-weight: 300;
-    }
+    .info-card p, .info-card li { font-size: .855rem; color: var(--text); line-height: 1.7; }
     .info-card ul { padding-left: 16px; }
     .info-card li { margin-bottom: 4px; }
     .info-card strong { font-weight: 600; color: var(--text-hi); }
 
     .formula-block {
-      background: var(--surface-2);
-      border: 1px solid var(--border-2);
-      border-radius: 4px;
-      padding: 12px 14px;
-      font-family: var(--mono);
-      font-size: .78rem;
-      color: var(--text);
-      margin-top: 12px;
-      line-height: 1.9;
+      background: var(--surface-3); border: 1px solid var(--border-2);
+      border-radius: 5px; padding: 12px 14px;
+      font-family: 'IBM Plex Mono', monospace; font-size: .78rem;
+      color: var(--text); margin-top: 12px; line-height: 1.95;
+      transition: background .25s;
     }
     .formula-block .sym { color: var(--accent); font-weight: 500; }
 
-    .legend-row { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 12px; }
-    .legend-item { display: flex; align-items: center; gap: 6px; font-size: .75rem; color: var(--text-dim); font-family: var(--mono); }
+    .legend-row { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 14px; }
+    .legend-item {
+      display: flex; align-items: center; gap: 6px;
+      font-size: .75rem; color: var(--text-dim);
+      font-family: 'IBM Plex Mono', monospace;
+    }
     .legend-dot { width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0; }
 
-    /* ── Disclaimer box ── */
-    .disclaimer-box {
-      background: #fffbf0;
-      border: 1px solid #e8d88a;
-      border-left: 3px solid #c8a800;
-      border-radius: 4px;
-      padding: 14px 16px;
-      margin-bottom: 20px;
-    }
-    .disclaimer-box p {
-      font-size: .8rem;
-      color: #6b5800;
-      line-height: 1.6;
-      font-family: var(--mono);
-    }
-    .disclaimer-box strong { font-weight: 600; }
-
-    /* ── Footer ── */
+    /* ═══════════════════════════════════════
+       FOOTER
+    ═══════════════════════════════════════ */
     .footer {
-      margin-top: 48px;
-      padding-top: 18px;
+      margin-top: 40px; padding-top: 16px;
       border-top: 1px solid var(--border);
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      justify-content: space-between;
-      align-items: flex-start;
+      display: flex; flex-wrap: wrap; gap: 6px;
+      justify-content: space-between; align-items: flex-start;
     }
-    .footer-col { font-family: var(--mono); font-size: 9px; color: var(--text-dim); line-height: 1.7; letter-spacing: .03em; }
+    .footer-col {
+      font-family: 'IBM Plex Mono', monospace; font-size: 9px;
+      color: var(--text-dim); line-height: 1.8; letter-spacing: .03em;
+    }
     .footer-col a { color: var(--blue); text-decoration: none; }
     .footer-col a:hover { text-decoration: underline; }
 
-    /* ── Loading ── */
+    /* ═══════════════════════════════════════
+       LOADING
+    ═══════════════════════════════════════ */
     #loading {
       position: fixed; inset: 0; background: var(--bg);
       display: flex; align-items: center; justify-content: center;
       z-index: 999; transition: opacity .35s;
     }
     .loading-inner { text-align: center; }
-    .loading-bar { width: 160px; height: 2px; background: var(--border-2); border-radius: 2px; overflow: hidden; margin: 14px auto 0; }
+    .loading-bar {
+      width: 160px; height: 2px; background: var(--border-2);
+      border-radius: 2px; overflow: hidden; margin: 14px auto 0;
+    }
     .loading-fill { height: 100%; background: var(--accent); animation: lp 1.4s ease-in-out infinite; }
     @keyframes lp {
-      0%   { width: 0%;   margin-left: 0; }
-      50%  { width: 60%;  margin-left: 20%; }
-      100% { width: 0%;   margin-left: 100%; }
+      0%   { width: 0%;  margin-left: 0; }
+      50%  { width: 60%; margin-left: 20%; }
+      100% { width: 0%;  margin-left: 100%; }
     }
-    .loading-text { font-family: var(--mono); font-size: 10px; letter-spacing: .14em; color: var(--text-dim); text-transform: uppercase; }
+    .loading-text {
+      font-family: 'IBM Plex Mono', monospace; font-size: 10px;
+      letter-spacing: .14em; color: var(--text-dim); text-transform: uppercase;
+    }
   </style>
 </head>
 <body>
 
+<!-- Loading overlay -->
 <div id="loading">
   <div class="loading-inner">
     <div class="loading-text">Loading GSCI Data</div>
@@ -402,19 +398,20 @@
   </div>
 </div>
 
-<div id="event-popup">
+<!-- Event popup — lives outside chart, always interactable -->
+<div id="event-popup" class="hidden">
   <div class="ep-date" id="ep-date"></div>
   <div class="ep-title" id="ep-title"></div>
   <div class="ep-desc" id="ep-desc"></div>
   <div class="ep-footer">
     <div class="ep-cat" id="ep-cat"></div>
-    <a class="ep-source" id="ep-source" href="#" target="_blank" rel="noopener"></a>
+    <a class="ep-source" id="ep-source" href="#" target="_blank" rel="noopener">↗ Source</a>
   </div>
 </div>
 
 <div class="page">
 
-  <!-- Header -->
+  <!-- ── HEADER ── -->
   <header class="header">
     <div class="header-inner">
       <div class="header-left">
@@ -424,26 +421,26 @@
       </div>
       <div class="header-right">
         <div class="header-actions">
-          <a href="gsci_data.csv" download class="link-btn link-btn-outline">
+          <!-- Theme toggle -->
+          <button class="btn btn-theme" id="theme-toggle" title="Toggle light/dark theme">☀</button>
+          <a href="gsci_data.csv" download class="btn btn-outline">
             <svg width="11" height="11" viewBox="0 0 16 16" fill="currentColor"><path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/><path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"/></svg>
             Download CSV
           </a>
-          <a href="https://github.com/YOUR_USERNAME/GSCI-Tracker" target="_blank" rel="noopener" class="link-btn link-btn-github">
+          <a href="https://github.com/jyingnan/GSCI-Tracker" target="_blank" rel="noopener" class="btn btn-dark">
             <svg width="11" height="11" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
             GitHub
           </a>
         </div>
-        <div class="disclaimer-header">Data auto-updated weekly · Events curated by Claude AI<br>Users should independently verify event details</div>
+        <div class="header-note">
+          Data updated weekly · Events curated by Claude AI<br>
+          Please independently verify event details via source links
+        </div>
       </div>
     </div>
   </header>
 
-  <!-- Disclaimer -->
-  <div class="disclaimer-box">
-    <p><strong>Note on Event Annotations:</strong> The geopolitical events displayed on this chart were collected and described by Claude (Anthropic AI). While each event links to a cited source, descriptions may contain inaccuracies or omissions. Users are encouraged to independently verify event details via the provided source links before drawing conclusions.</p>
-  </div>
-
-  <!-- Stats -->
+  <!-- ── STATS ── -->
   <div class="stats-row">
     <div class="stat-cell">
       <div class="stat-label">Latest Value</div>
@@ -472,7 +469,7 @@
     </div>
   </div>
 
-  <!-- Chart -->
+  <!-- ── CHART ── -->
   <div class="chart-card">
     <div class="chart-toolbar">
       <div class="toolbar-title">GSCI · Daily Index Value</div>
@@ -504,7 +501,7 @@
     </div>
   </div>
 
-  <!-- Info grid -->
+  <!-- ── INFO CARDS ── -->
   <div class="info-grid">
     <div class="info-card">
       <h3>Index Construction</h3>
@@ -538,23 +535,45 @@
     </div>
   </div>
 
-  <!-- Footer -->
+  <!-- ── FOOTER ── -->
   <footer class="footer">
     <div class="footer-col">
       Data: <a href="https://www.gdeltproject.org/" target="_blank">GDELT Project</a> ·
-      Methodology: <a href="https://doi.org/10.1017/S0022381600013346" target="_blank">Goldstein (1992)</a> ·
-      TVP-VAR: <a href="https://doi.org/10.3390/jrfm13040084" target="_blank">Antonakakis et al. (2020)</a>
+      <a href="https://github.com/jyingnan/GSCI-Tracker" target="_blank">GitHub: jyingnan/GSCI-Tracker</a>
     </div>
     <div class="footer-col">
-      Event annotations generated by Claude AI (Anthropic) · Verify independently via cited sources ·
-      <a href="https://github.com/YOUR_USERNAME/GSCI-Tracker" target="_blank">GitHub</a>
+      Event annotations generated by Claude AI · Verify independently via cited sources
     </div>
   </footer>
 
-</div>
+</div><!-- /page -->
 
 <script>
-// ── State ──
+// ══════════════════════════════════════════════════
+// Theme
+// ══════════════════════════════════════════════════
+const html = document.documentElement;
+const themeBtn = document.getElementById('theme-toggle');
+let currentTheme = localStorage.getItem('gsci-theme') || 'light';
+
+function applyTheme(t) {
+  currentTheme = t;
+  html.setAttribute('data-theme', t);
+  themeBtn.textContent = t === 'light' ? '☾' : '☀';
+  localStorage.setItem('gsci-theme', t);
+  if (chart) rebuildChartColors();
+}
+
+themeBtn.addEventListener('click', () => applyTheme(currentTheme === 'light' ? 'dark' : 'light'));
+applyTheme(currentTheme);
+
+function getCSSVar(name) {
+  return getComputedStyle(html).getPropertyValue(name).trim();
+}
+
+// ══════════════════════════════════════════════════
+// State
+// ══════════════════════════════════════════════════
 let allData    = [];
 let allEvents  = [];
 let chart      = null;
@@ -562,14 +581,20 @@ let showEvents = false;
 let activeRange = 'all';
 let activeCats  = new Set(['armed-conflict','terrorism','political-crisis','domestic-conflict']);
 
-const CAT_COLOR = {
-  'armed-conflict':    '#c0392b',
-  'terrorism':         '#a07800',
-  'political-crisis':  '#1a5ea8',
-  'domestic-conflict': '#6b3fa0'
-};
+// Category colours — resolved from CSS vars at draw time
+function catColor(cat) {
+  const map = {
+    'armed-conflict':    getCSSVar('--accent'),
+    'terrorism':         getCSSVar('--yellow'),
+    'political-crisis':  getCSSVar('--blue'),
+    'domestic-conflict': getCSSVar('--purple'),
+  };
+  return map[cat] || '#999';
+}
 
-// ── Boot ──
+// ══════════════════════════════════════════════════
+// Boot
+// ══════════════════════════════════════════════════
 async function boot() {
   const eventsRes = await fetch('events.json').then(r => r.json()).catch(() => []);
   allEvents = eventsRes;
@@ -590,6 +615,9 @@ async function boot() {
   });
 }
 
+// ══════════════════════════════════════════════════
+// Helpers
+// ══════════════════════════════════════════════════
 function filterByRange(data, range) {
   if (range === 'all') return data;
   const cutoff = new Date();
@@ -599,19 +627,18 @@ function filterByRange(data, range) {
 
 function populateStats() {
   if (!allData.length) return;
-  const vals  = allData.map(d => d.gsci);
+  const vals   = allData.map(d => d.gsci);
   const latest = allData[allData.length - 1];
   const prev30 = allData[Math.max(0, allData.length - 31)];
-  const mean   = vals.reduce((a,b)=>a+b,0)/vals.length;
+  const mean   = vals.reduce((a, b) => a + b, 0) / vals.length;
   const maxVal = Math.max(...vals);
   const maxDate = allData.find(d => d.gsci === maxVal)?.date;
   const chg = (latest.gsci - prev30.gsci) / prev30.gsci * 100;
 
   const chgEl = document.getElementById('stat-change');
-  chgEl.textContent = (chg>=0?'+':'')+chg.toFixed(1)+'%';
+  chgEl.textContent = (chg >= 0 ? '+' : '') + chg.toFixed(1) + '%';
   chgEl.classList.toggle('up', chg > 2);
   chgEl.classList.toggle('down', chg < -2);
-
   document.getElementById('stat-latest').textContent      = latest.gsci.toFixed(3);
   document.getElementById('stat-latest-date').textContent = latest.date;
   document.getElementById('stat-mean').textContent        = mean.toFixed(3);
@@ -620,15 +647,20 @@ function populateStats() {
   document.getElementById('stat-obs').textContent         = allData.length.toLocaleString();
 }
 
+// ══════════════════════════════════════════════════
+// Chart
+// ══════════════════════════════════════════════════
 function buildChart() {
   const filtered = filterByRange(allData, activeRange);
   const labels   = filtered.map(d => d.date);
   const values   = filtered.map(d => d.gsci);
-  const mean     = values.reduce((a,b)=>a+b,0)/values.length;
+  const mean     = values.reduce((a, b) => a + b, 0) / values.length;
   const meanLine = values.map(() => mean);
 
   const ctx = document.getElementById('gsciChart').getContext('2d');
-  if (chart) { chart.destroy(); }
+  if (chart) { chart.destroy(); chart = null; }
+
+  const accentColor = getCSSVar('--accent');
 
   chart = new Chart(ctx, {
     type: 'line',
@@ -638,22 +670,22 @@ function buildChart() {
         {
           label: 'GSCI',
           data: values,
-          borderColor: '#c0392b',
-          backgroundColor: (ctx) => {
-            const g = ctx.chart.ctx.createLinearGradient(0, 0, 0, ctx.chart.height);
-            g.addColorStop(0, 'rgba(192,57,43,0.12)');
-            g.addColorStop(1, 'rgba(192,57,43,0)');
+          borderColor: accentColor,
+          backgroundColor: (context) => {
+            const g = context.chart.ctx.createLinearGradient(0, 0, 0, context.chart.height);
+            g.addColorStop(0, getCSSVar('--chart-fill-start'));
+            g.addColorStop(1, getCSSVar('--chart-fill-end'));
             return g;
           },
           borderWidth: 1.5,
           pointRadius: 0, pointHoverRadius: 4,
-          pointHoverBackgroundColor: '#c0392b',
+          pointHoverBackgroundColor: accentColor,
           fill: true, tension: 0.3, order: 1
         },
         {
           label: 'Mean',
           data: meanLine,
-          borderColor: 'rgba(60,55,50,0.25)',
+          borderColor: getCSSVar('--chart-mean'),
           borderWidth: 1, borderDash: [4, 5],
           pointRadius: 0, fill: false, tension: 0, order: 2
         }
@@ -661,18 +693,18 @@ function buildChart() {
     },
     options: {
       responsive: true, maintainAspectRatio: false,
-      animation: { duration: 350, easing: 'easeOutQuart' },
+      animation: { duration: 320, easing: 'easeOutQuart' },
       interaction: { intersect: false, mode: 'index' },
       plugins: {
         legend: { display: false },
         tooltip: {
-          backgroundColor: '#fff',
-          borderColor: '#ddd9d0',
+          backgroundColor: getCSSVar('--tooltip-bg'),
+          borderColor: getCSSVar('--tooltip-border'),
           borderWidth: 1,
           titleFont: { family: "'IBM Plex Mono', monospace", size: 10 },
           bodyFont:  { family: "'IBM Plex Mono', monospace", size: 12 },
-          titleColor: '#8c8478',
-          bodyColor:  '#1a1916',
+          titleColor: getCSSVar('--tooltip-title'),
+          bodyColor:  getCSSVar('--tooltip-body'),
           padding: 11,
           callbacks: {
             title: (items) => items[0].label,
@@ -686,23 +718,24 @@ function buildChart() {
       },
       scales: {
         x: {
-          grid: { color: 'rgba(0,0,0,0.04)' },
-          border: { color: '#ddd9d0' },
+          grid: { color: getCSSVar('--chart-grid') },
+          border: { color: getCSSVar('--chart-border') },
           ticks: {
             font: { family: "'IBM Plex Mono', monospace", size: 9 },
-            color: '#8c8478', maxTicksLimit: 13, maxRotation: 0,
+            color: getCSSVar('--chart-tick'),
+            maxTicksLimit: 13, maxRotation: 0,
             callback(val) {
               const label = this.getLabelForValue(val);
-              return label ? label.substring(0,7) : '';
+              return label ? label.substring(0, 7) : '';
             }
           }
         },
         y: {
-          grid: { color: 'rgba(0,0,0,0.04)' },
-          border: { color: '#ddd9d0' },
+          grid: { color: getCSSVar('--chart-grid') },
+          border: { color: getCSSVar('--chart-border') },
           ticks: {
             font: { family: "'IBM Plex Mono', monospace", size: 9 },
-            color: '#8c8478',
+            color: getCSSVar('--chart-tick'),
             callback: v => v.toFixed(2)
           }
         }
@@ -712,16 +745,24 @@ function buildChart() {
 
   if (showEvents) {
     requestAnimationFrame(() => {
-      const ann = buildEventAnnotations(filtered);
+      const ann = visibleAnnotations(filtered);
       if (ann.length) drawEventLines(filtered, ann);
     });
   }
 }
 
-function buildEventAnnotations(filteredData) {
+function rebuildChartColors() {
+  // Full rebuild to pick up new CSS var values
+  buildChart();
+}
+
+// ══════════════════════════════════════════════════
+// Event annotations drawn on canvas
+// ══════════════════════════════════════════════════
+function visibleAnnotations(filteredData) {
   if (!showEvents || !allEvents.length || !filteredData.length) return [];
   const firstDate = new Date(filteredData[0].date);
-  const lastDate  = new Date(filteredData[filteredData.length-1].date);
+  const lastDate  = new Date(filteredData[filteredData.length - 1].date);
   return allEvents.filter(ev => {
     if (!activeCats.has(ev.category)) return false;
     const d = new Date(ev.date);
@@ -732,15 +773,13 @@ function buildEventAnnotations(filteredData) {
 function drawEventLines(filteredData, annotations) {
   if (!chart) return;
   const canvas = document.getElementById('gsciChart');
-  const ctx2 = canvas.getContext('2d');
+  const c = canvas.getContext('2d');
   const meta = chart.getDatasetMeta(0);
   if (!meta.data.length) return;
 
   const dateToX = {};
-  filteredData.forEach((d, i) => {
-    if (meta.data[i]) dateToX[d.date] = meta.data[i].x;
-  });
-  const chartArea = chart.chartArea;
+  filteredData.forEach((d, i) => { if (meta.data[i]) dateToX[d.date] = meta.data[i].x; });
+  const area = chart.chartArea;
 
   annotations.forEach(ev => {
     let closestKey = null, minDiff = Infinity;
@@ -750,53 +789,91 @@ function drawEventLines(filteredData, annotations) {
     });
     if (!closestKey || dateToX[closestKey] == null) return;
     const x = dateToX[closestKey];
-    const color = CAT_COLOR[ev.category] || '#999';
+    const col = catColor(ev.category);
 
-    ctx2.save();
-    ctx2.strokeStyle = color;
-    ctx2.lineWidth = 1;
-    ctx2.setLineDash([3, 4]);
-    ctx2.globalAlpha = 0.45;
-    ctx2.beginPath();
-    ctx2.moveTo(x, chartArea.top);
-    ctx2.lineTo(x, chartArea.bottom);
-    ctx2.stroke();
-    ctx2.setLineDash([]);
-    ctx2.globalAlpha = 0.85;
-    ctx2.fillStyle = color;
-    ctx2.beginPath();
-    ctx2.arc(x, chartArea.top + 6, 3.5, 0, Math.PI * 2);
-    ctx2.fill();
-    ctx2.restore();
+    c.save();
+    c.strokeStyle = col; c.lineWidth = 1;
+    c.setLineDash([3, 4]); c.globalAlpha = .4;
+    c.beginPath(); c.moveTo(x, area.top); c.lineTo(x, area.bottom); c.stroke();
+    c.setLineDash([]); c.globalAlpha = .9;
+    c.fillStyle = col;
+    c.beginPath(); c.arc(x, area.top + 6, 3.5, 0, Math.PI * 2); c.fill();
+    c.restore();
   });
 }
 
-// Hook into Chart.js draw cycle
+// Hook Chart.js draw cycle for annotations
 const _origDraw = Chart.prototype.draw;
-Chart.prototype.draw = function() {
+Chart.prototype.draw = function () {
   _origDraw.call(this);
   if (this.canvas && this.canvas.id === 'gsciChart' && showEvents) {
     const filtered = filterByRange(allData, activeRange);
-    const ann = buildEventAnnotations(filtered);
+    const ann = visibleAnnotations(filtered);
     if (ann.length) drawEventLines(filtered, ann);
   }
 };
 
-// ── Event hover popup ──
+// ══════════════════════════════════════════════════
+// Event Popup — mouse tracking with bridge gap
+// ══════════════════════════════════════════════════
 function setupEventHover() {
-  const canvas = document.getElementById('gsciChart');
-  const popup  = document.getElementById('event-popup');
+  const canvas  = document.getElementById('gsciChart');
+  const popup   = document.getElementById('event-popup');
+  let hideTimer = null;
+  let currentEvent = null;
+
+  function showPopup(ev, clientX, clientY) {
+    const col = catColor(ev.category);
+    document.getElementById('ep-date').textContent  = ev.date;
+    document.getElementById('ep-title').textContent = ev.label;
+    document.getElementById('ep-desc').textContent  = ev.description;
+
+    const catEl = document.getElementById('ep-cat');
+    catEl.textContent = ev.category.replace(/-/g, ' ');
+    catEl.style.cssText = `color:${col};background:${col}18;border:1px solid ${col}44`;
+
+    const srcEl = document.getElementById('ep-source');
+    if (ev.source_url && ev.source_label) {
+      srcEl.textContent = '↗ ' + ev.source_label;
+      srcEl.href = ev.source_url;
+      srcEl.style.display = 'inline';
+    } else {
+      srcEl.style.display = 'none';
+    }
+
+    // Position: prefer right side, flip if needed
+    const W = 284, H = 160;
+    let px = clientX + 16, py = clientY - 16;
+    if (px + W > window.innerWidth - 8) px = clientX - W - 10;
+    if (py + H > window.innerHeight - 8) py = clientY - H + 10;
+    popup.style.left = px + 'px';
+    popup.style.top  = py + 'px';
+    popup.classList.remove('hidden');
+    popup.style.display = 'block';
+    currentEvent = ev;
+  }
+
+  function scheduleHide() {
+    hideTimer = setTimeout(() => {
+      popup.style.display = 'none';
+      popup.classList.add('hidden');
+      currentEvent = null;
+    }, 180);
+  }
+
+  function cancelHide() { clearTimeout(hideTimer); }
 
   canvas.addEventListener('mousemove', (e) => {
-    if (!showEvents || !chart) { popup.style.display = 'none'; return; }
+    if (!showEvents || !chart) { scheduleHide(); return; }
     const rect   = canvas.getBoundingClientRect();
     const mouseX = e.clientX - rect.left;
     const filtered = filterByRange(allData, activeRange);
-    const ann = buildEventAnnotations(filtered);
-    if (!ann.length) { popup.style.display = 'none'; return; }
+    const ann = visibleAnnotations(filtered);
+    if (!ann.length) { scheduleHide(); return; }
 
     const meta = chart.getDatasetMeta(0);
     let closest = null, minDist = 14;
+
     ann.forEach(ev => {
       let closestKey = null, minDiff = Infinity;
       filtered.forEach(d => {
@@ -811,52 +888,26 @@ function setupEventHover() {
     });
 
     if (closest) {
-      const color = CAT_COLOR[closest.category] || '#999';
-      document.getElementById('ep-date').textContent  = closest.date;
-      document.getElementById('ep-title').textContent = closest.label;
-      document.getElementById('ep-desc').textContent  = closest.description;
-      const catEl = document.getElementById('ep-cat');
-      catEl.textContent = closest.category.replace(/-/g,' ');
-      catEl.style.color = color;
-      catEl.style.background = color + '14';
-      catEl.style.borderColor = color + '40';
-      catEl.style.border = '1px solid ' + color + '40';
-
-      const srcEl = document.getElementById('ep-source');
-      if (closest.source_url && closest.source_label) {
-        srcEl.textContent = '↗ ' + closest.source_label;
-        srcEl.href = closest.source_url;
-        srcEl.style.display = 'inline';
-        // Make popup clickable temporarily
-        popup.style.pointerEvents = 'auto';
-      } else {
-        srcEl.style.display = 'none';
-        popup.style.pointerEvents = 'none';
-      }
-
-      let px = e.clientX + 16, py = e.clientY - 20;
-      if (px + 285 > window.innerWidth) px = e.clientX - 295;
-      if (py + 160 > window.innerHeight) py = e.clientY - 170;
-      popup.style.left = px + 'px';
-      popup.style.top  = py + 'px';
-      popup.style.display = 'block';
+      cancelHide();
+      showPopup(closest, e.clientX, e.clientY);
     } else {
-      popup.style.display = 'none';
+      scheduleHide();
     }
   });
 
-  canvas.addEventListener('mouseleave', () => {
-    // Small delay so user can click the source link
-    setTimeout(() => { document.getElementById('event-popup').style.display = 'none'; }, 300);
-  });
+  // When mouse leaves canvas, start a short timer — popup stays alive
+  canvas.addEventListener('mouseleave', scheduleHide);
 
-  popup.addEventListener('mouseleave', () => {
-    popup.style.display = 'none';
-  });
+  // If mouse enters popup, cancel the hide
+  popup.addEventListener('mouseenter', cancelHide);
+  popup.addEventListener('mouseleave', scheduleHide);
 }
 
-// ── Controls ──
+// ══════════════════════════════════════════════════
+// Controls
+// ══════════════════════════════════════════════════
 function setupControls() {
+  // Range buttons
   document.querySelectorAll('.range-btn').forEach(btn => {
     btn.addEventListener('click', () => {
       document.querySelectorAll('.range-btn').forEach(b => b.classList.remove('active'));
@@ -866,6 +917,7 @@ function setupControls() {
     });
   });
 
+  // Event toggle
   const toggleWrap  = document.getElementById('event-toggle-wrap');
   const toggleTrack = document.getElementById('toggle-track');
   const catFilter   = document.getElementById('cat-filter');
@@ -877,9 +929,10 @@ function setupControls() {
     buildChart();
   });
 
+  // Category filter
   document.querySelectorAll('.cat-btn').forEach(btn => {
-    const cat = btn.dataset.cat;
     btn.addEventListener('click', () => {
+      const cat = btn.dataset.cat;
       if (activeCats.has(cat)) { activeCats.delete(cat); btn.classList.add('disabled'); }
       else { activeCats.add(cat); btn.classList.remove('disabled'); }
       buildChart();
@@ -889,6 +942,7 @@ function setupControls() {
   setupEventHover();
 }
 
+// ══════════════════════════════════════════════════
 boot();
 </script>
 </body>
