@@ -1,34 +1,34 @@
-name: Weekly GSCI Update
+name: GSCI Weekly Auto-Update
 
 on:
   schedule:
-    - cron: '0 0 * * 1' # 每周一北京时间上午 8 点运行
-  workflow_dispatch: # 允许你手动点击运行
+    - cron: '0 0 * * 1' # Runs every Monday at 00:00 UTC
+  workflow_dispatch: # Allows manual trigger for testing
 
 jobs:
-  update:
+  build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+      - name: Checkout Repository
         uses: actions/checkout@v3
 
-      - name: Setup Python
+      - name: Set up Python
         uses: actions/setup-python@v4
         with:
           python-version: '3.9'
 
-      - name: Install Libs
+      - name: Install Dependencies
         run: pip install pandas google-cloud-bigquery db-dtypes
 
-      - name: Run Script
+      - name: Execute Update Script
         env:
           GCP_SERVICE_ACCOUNT_KEY: ${{ secrets.GCP_SERVICE_ACCOUNT_KEY }}
         run: python update_gsci.py
 
-      - name: Auto Save to GitHub
+      - name: Commit and Push Changes
         run: |
           git config --global user.name "GSCI-Bot"
-          git config --global user.email "bot@gsci.com"
+          git config --global user.email "bot@gsci-research.org"
           git add gsci_data.csv
-          git commit -m "Automated Data Update" || exit 0
+          git commit -m "Automated Data Update: $(date)" || exit 0
           git push
