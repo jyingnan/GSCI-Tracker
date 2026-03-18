@@ -5,20 +5,25 @@ on:
     - cron: '0 0 * * 1' # Runs every Monday at 00:00 UTC
   workflow_dispatch: # Allows manual trigger for testing
 
+# 明确声明需要写权限
+permissions:
+  contents: write
+
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4 # 更新到 v4 以支持 Node.js 24
 
       - name: Set up Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5 # 更新到 v5
         with:
           python-version: '3.9'
 
       - name: Install Dependencies
-        run: pip install pandas google-cloud-bigquery db-dtypes
+        run: |
+          pip install pandas google-cloud-bigquery db-dtypes
 
       - name: Execute Update Script
         env:
@@ -30,5 +35,10 @@ jobs:
           git config --global user.name "GSCI-Bot"
           git config --global user.email "bot@gsci-research.org"
           git add gsci_data.csv
-          git commit -m "Automated Data Update: $(date)" || exit 0
-          git push
+          # 检查是否有文件更改，避免没有新数据时报错
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "Automated Data Update: $(date)"
+            git push
+          fi
