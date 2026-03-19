@@ -42,7 +42,7 @@
   {
     "date": "2018-05-09",
     "label": "U.S. Withdraws from JCPOA",
-    "description": "Trump unilaterally withdraws the U.S. from the Iran nuclear deal and reimposed sanctions. GPRT surges on nuclear risk vocabulary; GSCI remains low as no conflict events recorded.",
+    "description": "Trump unilaterally withdraws the U.S. from the Iran nuclear deal and reimposed sanctions.",
     "category": "political-crisis",
     "source_label": "BBC News",
     "source_url": "https://www.bbc.com/news/world-us-canada-44046904"
@@ -66,7 +66,7 @@
   {
     "date": "2019-10-27",
     "label": "al-Baghdadi Killed",
-    "description": "U.S. Delta Force raid kills ISIS leader Abu Bakr al-Baghdadi in Barisha, Syria. GSCI records a high-severity cross-border event; GPRT near-minimum as Western media frames it as a security success.",
+    "description": "U.S. Delta Force raid kills ISIS leader Abu Bakr al-Baghdadi in Barisha, Syria.",
     "category": "armed-conflict",
     "source_label": "Wikipedia",
     "source_url": "https://en.wikipedia.org/wiki/Death_of_Abu_Bakr_al-Baghdadi"
@@ -74,7 +74,7 @@
   {
     "date": "2020-01-03",
     "label": "Soleimani Assassination",
-    "description": "U.S. drone strike kills Iranian General Qasem Soleimani near Baghdad airport. GSCI hits sample maximum (3.354) as global conflict intensity peaks.",
+    "description": "U.S. drone strike kills Iranian General Qasem Soleimani near Baghdad airport.",
     "category": "armed-conflict",
     "source_label": "Wikipedia",
     "source_url": "https://en.wikipedia.org/wiki/Assassination_of_Qasem_Soleimani"
@@ -82,7 +82,7 @@
   {
     "date": "2020-01-07",
     "label": "Post-Soleimani GPRT Peak",
-    "description": "Newspapers flood with analysis of potential Iranian retaliation and nuclear escalation risks. GPRT reaches its peak while no new large-scale conflict event is recorded — a pure anticipatory risk narrative (Panel C event in the paper).",
+    "description": "Newspapers flood with analysis of potential Iranian retaliation and nuclear escalation risks. GPRT reaches its peak while no new large-scale conflict event is recorded — a pure anticipatory risk narrative.",
     "category": "political-crisis",
     "source_label": "Caldara & Iacoviello (2022)",
     "source_url": "https://www.matteoiacoviello.com/gpr.htm"
@@ -90,7 +90,7 @@
   {
     "date": "2020-05-31",
     "label": "George Floyd Protests Peak",
-    "description": "Over 200 U.S. cities under curfew following the death of George Floyd on May 25. GDELT records mass-scale domestic conflict events globally; GPRT remains low as its methodology targets international geopolitical terminology.",
+    "description": "Over 200 U.S. cities under curfew following the death of George Floyd on May 25.",
     "category": "domestic-conflict",
     "source_label": "Wikipedia",
     "source_url": "https://en.wikipedia.org/wiki/George_Floyd_protests"
@@ -114,7 +114,7 @@
   {
     "date": "2022-01-27",
     "label": "Russia-Ukraine Tension Peak (Pre-invasion)",
-    "description": "U.S. intelligence publicly assesses a Russian invasion as imminent. Extensive newspaper risk commentary. GSCI is below the 25th percentile as no military engagement has occurred (Panel C event in the paper).",
+    "description": "U.S. intelligence publicly assesses a Russian invasion as imminent. Extensive newspaper risk commentary.",
     "category": "political-crisis",
     "source_label": "Wikipedia",
     "source_url": "https://en.wikipedia.org/wiki/Prelude_to_the_2022_Russian_invasion_of_Ukraine"
@@ -130,7 +130,7 @@
   {
     "date": "2023-10-07",
     "label": "Hamas Attack on Israel",
-    "description": "Hamas launches a surprise attack from Gaza; approximately 1,200 Israelis killed, 250 taken hostage. GSCI records extreme conflict intensity on the day of the attack; GPRT is below the sample median as newspaper risk vocabulary had not yet fully escalated (Panel B event in the paper).",
+    "description": "Hamas launches a surprise attack from Gaza; approximately 1,200 Israelis killed, 250 taken hostage.",
     "category": "armed-conflict",
     "source_label": "Wikipedia",
     "source_url": "https://en.wikipedia.org/wiki/2023_Hamas-led_attack_on_Israel"
@@ -146,7 +146,7 @@
   {
     "date": "2024-04-14",
     "label": "Iran Strikes Israel (Op. True Promise I)",
-    "description": "Iran fires over 300 drones, cruise and ballistic missiles at Israel — the first direct Iranian strike on Israeli territory in history. Most were intercepted. GSCI spikes; GPRT only moderately elevated as the strike had been widely anticipated (Panel B event).",
+    "description": "Iran fires over 300 drones, cruise and ballistic missiles at Israel — the first direct Iranian strike on Israeli territory in history.",
     "category": "armed-conflict",
     "source_label": "Wikipedia",
     "source_url": "https://en.wikipedia.org/wiki/Iranian_strikes_on_Israel_(April_2024)"
@@ -154,7 +154,7 @@
   {
     "date": "2024-07-14",
     "label": "Trump Assassination Attempt",
-    "description": "Shooter opens fire at Trump campaign rally in Butler, Pennsylvania. GSCI elevated; GPRT well below the 25th percentile as the GPR methodology focuses on international conflict terminology.",
+    "description": "Shooter opens fire at Trump campaign rally in Butler, Pennsylvania.",
     "category": "political-crisis",
     "source_label": "Wikipedia",
     "source_url": "https://en.wikipedia.org/wiki/Attempted_assassination_of_Donald_Trump_(July_2024)"
@@ -218,7 +218,7 @@
   {
     "date": "2025-06-24",
     "label": "Twelve-Day War: Ceasefire",
-    "description": "Formal ceasefire brokered by Oman takes effect. Final toll: Iran ~610 killed; Israel 28 killed. 525 Iranian ballistic missiles were launched at Israel during the war; 50–60 struck Israeli territory. GPRT reaches its sample maximum as editorial risk framing surges even as kinetic exchanges cease.",
+    "description": "Formal ceasefire brokered by Oman takes effect. Final toll: Iran ~610 killed; Israel 28 killed. 525 Iranian ballistic missiles were launched at Israel during the war; 50–60 struck Israeli territory.",
     "category": "armed-conflict",
     "source_label": "Wikipedia",
     "source_url": "https://en.wikipedia.org/wiki/Twelve-Day_War"
