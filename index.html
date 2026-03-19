@@ -11,9 +11,6 @@
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-    /* ═══════════════════════════════════════
-       LIGHT THEME
-    ═══════════════════════════════════════ */
     [data-theme="light"] {
       --bg:         #f5f6f8;
       --surface:    #ffffff;
@@ -30,6 +27,9 @@
       --yellow:     #92650a;
       --blue:       #1d5fa8;
       --purple:     #6435a8;
+      --warning:    #b45309;
+      --warning-bg: #fffbeb;
+      --warning-border: #fde68a;
       --shadow:     0 1px 4px rgba(0,0,0,.07), 0 4px 16px rgba(0,0,0,.05);
       --shadow-pop: 0 4px 24px rgba(0,0,0,.13);
       --tooltip-bg: #ffffff;
@@ -42,12 +42,8 @@
       --chart-mean: rgba(55,65,81,0.2);
       --chart-fill-start: rgba(192,57,43,0.10);
       --chart-fill-end:   rgba(192,57,43,0);
-      --theme-btn-icon: "☀";
     }
 
-    /* ═══════════════════════════════════════
-       DARK THEME
-    ═══════════════════════════════════════ */
     [data-theme="dark"] {
       --bg:         #0d0f14;
       --surface:    #141720;
@@ -55,7 +51,6 @@
       --surface-3:  #1f2433;
       --border:     #252a38;
       --border-2:   #1e2230;
-      --text-dim:   #6470888;
       --text-dim:   #64708e;
       --text:       #b8c0d0;
       --text-hi:    #e8ecf4;
@@ -65,6 +60,9 @@
       --yellow:     #f0b429;
       --blue:       #4e9eff;
       --purple:     #a78bfa;
+      --warning:    #f0b429;
+      --warning-bg: #1c1a0e;
+      --warning-border: #78600a;
       --shadow:     0 1px 4px rgba(0,0,0,.3), 0 4px 16px rgba(0,0,0,.2);
       --shadow-pop: 0 4px 24px rgba(0,0,0,.55);
       --tooltip-bg: #1a1e28;
@@ -77,320 +75,163 @@
       --chart-mean: rgba(255,255,255,0.15);
       --chart-fill-start: rgba(224,82,82,0.15);
       --chart-fill-end:   rgba(224,82,82,0);
-      --theme-btn-icon: "☾";
     }
 
-    /* ═══════════════════════════════════════
-       BASE
-    ═══════════════════════════════════════ */
     html, body { height: 100%; }
     body {
       font-family: 'Inter', -apple-system, sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.6;
-      transition: background .25s, color .25s;
+      background: var(--bg); color: var(--text);
+      line-height: 1.6; transition: background .25s, color .25s;
     }
-
     .page { max-width: 1100px; margin: 0 auto; padding: 40px 24px 80px; }
 
-    /* ═══════════════════════════════════════
-       HEADER
-    ═══════════════════════════════════════ */
-    .header {
-      margin-bottom: 28px;
-      padding-bottom: 24px;
-      border-bottom: 1px solid var(--border);
-    }
-    .header-inner {
-      display: flex; align-items: flex-start;
-      justify-content: space-between; flex-wrap: wrap; gap: 16px;
-    }
+    /* HEADER */
+    .header { margin-bottom: 28px; padding-bottom: 24px; border-bottom: 1px solid var(--border); }
+    .header-inner { display: flex; align-items: flex-start; justify-content: space-between; flex-wrap: wrap; gap: 16px; }
     .header-left { flex: 1; min-width: 260px; }
-    .header-eyebrow {
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 10px; letter-spacing: .16em; text-transform: uppercase;
-      color: var(--accent); margin-bottom: 8px;
-    }
-    .header h1 {
-      font-size: clamp(1.5rem, 3vw, 2.1rem);
-      font-weight: 600; color: var(--text-hi);
-      letter-spacing: -.03em; line-height: 1.15;
-    }
-    .header-subtitle {
-      margin-top: 8px; font-size: .875rem;
-      color: var(--text-dim); font-weight: 400;
-      max-width: 500px; line-height: 1.65;
-    }
-    .header-right {
-      display: flex; flex-direction: column;
-      align-items: flex-end; gap: 10px; padding-top: 2px;
-    }
+    .header-eyebrow { font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: .16em; text-transform: uppercase; color: var(--accent); margin-bottom: 8px; }
+    .header h1 { font-size: clamp(1.5rem, 3vw, 2.1rem); font-weight: 600; color: var(--text-hi); letter-spacing: -.03em; line-height: 1.15; }
+    .header-subtitle { margin-top: 8px; font-size: .875rem; color: var(--text-dim); font-weight: 400; max-width: 500px; line-height: 1.65; }
+    .header-right { display: flex; flex-direction: column; align-items: flex-end; gap: 10px; padding-top: 2px; }
     .header-actions { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; justify-content: flex-end; }
-
-    /* Buttons */
-    .btn {
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 11px; letter-spacing: .04em;
-      padding: 7px 13px; border-radius: 5px;
-      text-decoration: none; font-weight: 500;
-      transition: all .15s; display: inline-flex;
-      align-items: center; gap: 6px; white-space: nowrap; cursor: pointer;
-      border: none;
-    }
-    .btn-outline {
-      color: var(--text); border: 1px solid var(--border);
-      background: var(--surface);
-    }
+    .btn { font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: .04em; padding: 7px 13px; border-radius: 5px; text-decoration: none; font-weight: 500; transition: all .15s; display: inline-flex; align-items: center; gap: 6px; white-space: nowrap; cursor: pointer; border: none; }
+    .btn-outline { color: var(--text); border: 1px solid var(--border); background: var(--surface); }
     .btn-outline:hover { border-color: var(--text-dim); }
-    .btn-dark {
-      color: #fff; background: var(--text-hi);
-      border: 1px solid var(--text-hi);
-    }
+    .btn-dark { color: #fff; background: var(--text-hi); border: 1px solid var(--text-hi); }
     .btn-dark:hover { opacity: .85; }
-    /* Theme toggle button */
-    .btn-theme {
-      color: var(--text); border: 1px solid var(--border);
-      background: var(--surface); font-size: 14px;
-      padding: 5px 10px; line-height: 1;
-    }
+    .btn-theme { color: var(--text); border: 1px solid var(--border); background: var(--surface); font-size: 14px; padding: 5px 10px; line-height: 1; }
     .btn-theme:hover { border-color: var(--text-dim); }
+    .header-note { font-family: 'IBM Plex Mono', monospace; font-size: 9.5px; color: var(--text-dim); text-align: right; max-width: 300px; line-height: 1.55; }
 
-    .header-note {
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 9.5px; color: var(--text-dim);
-      text-align: right; max-width: 300px; line-height: 1.55;
+    /* DATA QUALITY BANNER */
+    .dq-banner {
+      background: var(--warning-bg);
+      border: 1px solid var(--warning-border);
+      border-left: 3px solid var(--warning);
+      border-radius: 6px; padding: 12px 16px; margin-bottom: 20px;
+      display: flex; gap: 10px; align-items: flex-start;
+      transition: background .25s, border-color .25s;
     }
+    .dq-icon { font-size: 14px; flex-shrink: 0; margin-top: 1px; color: var(--warning); }
+    .dq-content { flex: 1; }
+    .dq-title { font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: var(--warning); font-weight: 500; margin-bottom: 5px; }
+    .dq-text { font-size: .8rem; color: var(--text); line-height: 1.65; }
+    .dq-text strong { font-weight: 600; color: var(--text-hi); }
+    .dq-detail { margin-top: 6px; font-size: .775rem; color: var(--text-dim); line-height: 1.6; }
+    .dq-detail ul { margin-top: 6px; padding-left: 18px; line-height: 1.85; }
+    .dq-detail li { margin-bottom: 2px; }
+    .dq-detail strong { color: var(--text-hi); font-weight: 600; }
+    .dq-toggle { font-family: 'IBM Plex Mono', monospace; font-size: 9px; color: var(--blue); cursor: pointer; text-decoration: underline; background: none; border: none; padding: 0; margin-left: 4px; }
+    .dq-expanded { display: none; }
+    .dq-expanded.open { display: block; }
 
-    /* ═══════════════════════════════════════
-       STATS ROW
-    ═══════════════════════════════════════ */
-    .stats-row {
-      display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-      gap: 1px; background: var(--border);
-      border: 1px solid var(--border); border-radius: 8px;
-      overflow: hidden; margin-bottom: 20px;
-      box-shadow: var(--shadow);
-    }
+    /* STATS */
+    .stats-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; margin-bottom: 20px; box-shadow: var(--shadow); }
     .stat-cell { background: var(--surface); padding: 14px 18px; transition: background .25s; }
-    .stat-label {
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 9px; letter-spacing: .12em;
-      text-transform: uppercase; color: var(--text-dim); margin-bottom: 5px;
-    }
-    .stat-value {
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 1.25rem; font-weight: 500; color: var(--text-hi);
-    }
-    .stat-value.up   { color: var(--accent); }
+    .stat-label { font-family: 'IBM Plex Mono', monospace; font-size: 9px; letter-spacing: .12em; text-transform: uppercase; color: var(--text-dim); margin-bottom: 5px; }
+    .stat-value { font-family: 'IBM Plex Mono', monospace; font-size: 1.25rem; font-weight: 500; color: var(--text-hi); }
+    .stat-value.up { color: var(--accent); }
     .stat-value.down { color: var(--green); }
     .stat-meta { font-family: 'IBM Plex Mono', monospace; font-size: 9px; color: var(--text-dim); margin-top: 2px; }
 
-    /* ═══════════════════════════════════════
-       CHART CARD
-    ═══════════════════════════════════════ */
-    .chart-card {
-      background: var(--surface); border: 1px solid var(--border);
-      border-radius: 8px; overflow: hidden; margin-bottom: 20px;
-      box-shadow: var(--shadow); transition: background .25s, border-color .25s;
-    }
-    .chart-toolbar {
-      display: flex; align-items: center; justify-content: space-between;
-      flex-wrap: wrap; gap: 10px; padding: 11px 18px;
-      border-bottom: 1px solid var(--border-2);
-      background: var(--surface-2); transition: background .25s;
-    }
-    .toolbar-title {
-      font-family: 'IBM Plex Mono', monospace; font-size: 10px;
-      letter-spacing: .1em; text-transform: uppercase; color: var(--text-dim);
-    }
+    /* CHART CARD */
+    .chart-card { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; margin-bottom: 20px; box-shadow: var(--shadow); transition: background .25s, border-color .25s; }
+    .chart-toolbar { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; padding: 11px 18px; border-bottom: 1px solid var(--border-2); background: var(--surface-2); transition: background .25s; }
+    .toolbar-title { font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: var(--text-dim); }
     .toolbar-right { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
-
-    /* Range buttons */
     .range-btns { display: flex; gap: 3px; }
-    .range-btn {
-      font-family: 'IBM Plex Mono', monospace; font-size: 11px;
-      padding: 4px 10px; background: transparent;
-      border: 1px solid var(--border); color: var(--text-dim);
-      border-radius: 4px; cursor: pointer; transition: all .15s;
-    }
+    .range-btn { font-family: 'IBM Plex Mono', monospace; font-size: 11px; padding: 4px 10px; background: transparent; border: 1px solid var(--border); color: var(--text-dim); border-radius: 4px; cursor: pointer; transition: all .15s; }
     .range-btn:hover { border-color: var(--text-dim); color: var(--text); }
     .range-btn.active { background: var(--text-hi); border-color: var(--text-hi); color: #fff; }
-
-    /* Event toggle */
     .event-toggle { display: flex; align-items: center; gap: 7px; cursor: pointer; user-select: none; }
-    .toggle-track {
-      width: 34px; height: 18px; background: var(--border);
-      border-radius: 9px; position: relative; transition: background .2s; flex-shrink: 0;
-    }
+    .toggle-track { width: 34px; height: 18px; background: var(--border); border-radius: 9px; position: relative; transition: background .2s; flex-shrink: 0; }
     .toggle-track.on { background: var(--accent); }
-    .toggle-thumb {
-      width: 12px; height: 12px; background: #fff; border-radius: 50%;
-      position: absolute; top: 3px; left: 3px;
-      transition: left .2s; box-shadow: 0 1px 3px rgba(0,0,0,.25);
-    }
+    .toggle-thumb { width: 12px; height: 12px; background: #fff; border-radius: 50%; position: absolute; top: 3px; left: 3px; transition: left .2s; box-shadow: 0 1px 3px rgba(0,0,0,.25); }
     .toggle-track.on .toggle-thumb { left: 19px; }
-    .toggle-label {
-      font-family: 'IBM Plex Mono', monospace; font-size: 10px;
-      color: var(--text-dim); letter-spacing: .05em; text-transform: uppercase;
-    }
-
-    /* Category filter */
+    .toggle-label { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--text-dim); letter-spacing: .05em; text-transform: uppercase; }
+    .lowsrc-toggle { display: flex; align-items: center; gap: 7px; cursor: pointer; user-select: none; }
+    .lowsrc-track { width: 34px; height: 18px; background: var(--border); border-radius: 9px; position: relative; transition: background .2s; flex-shrink: 0; }
+    .lowsrc-track.on { background: #d97706; }
+    .lowsrc-thumb { width: 12px; height: 12px; background: #fff; border-radius: 50%; position: absolute; top: 3px; left: 3px; transition: left .2s; box-shadow: 0 1px 3px rgba(0,0,0,.25); }
+    .lowsrc-track.on .lowsrc-thumb { left: 19px; }
     .cat-filter { display: flex; gap: 4px; flex-wrap: wrap; align-items: center; }
-    .cat-btn {
-      font-family: 'IBM Plex Mono', monospace; font-size: 9px;
-      padding: 3px 8px; border-radius: 3px; border: 1px solid;
-      cursor: pointer; transition: all .15s; letter-spacing: .04em; text-transform: uppercase;
-    }
+    .cat-btn { font-family: 'IBM Plex Mono', monospace; font-size: 9px; padding: 3px 8px; border-radius: 3px; border: 1px solid; cursor: pointer; transition: all .15s; letter-spacing: .04em; text-transform: uppercase; }
     .cat-btn[data-cat="armed-conflict"]   { color: var(--accent); border-color: rgba(192,57,43,.3); background: rgba(192,57,43,.07); }
     .cat-btn[data-cat="terrorism"]         { color: var(--yellow); border-color: rgba(146,101,10,.3); background: rgba(146,101,10,.07); }
     .cat-btn[data-cat="political-crisis"]  { color: var(--blue);   border-color: rgba(29,95,168,.3);  background: rgba(29,95,168,.07); }
     .cat-btn[data-cat="domestic-conflict"] { color: var(--purple); border-color: rgba(100,53,168,.3); background: rgba(100,53,168,.07); }
     .cat-btn.disabled { opacity: .3; }
-
     [data-theme="dark"] .cat-btn[data-cat="armed-conflict"]   { border-color: rgba(224,82,82,.35);   background: rgba(224,82,82,.10); }
     [data-theme="dark"] .cat-btn[data-cat="terrorism"]         { border-color: rgba(240,180,41,.35);  background: rgba(240,180,41,.10); }
     [data-theme="dark"] .cat-btn[data-cat="political-crisis"]  { border-color: rgba(78,158,255,.35);  background: rgba(78,158,255,.10); }
     [data-theme="dark"] .cat-btn[data-cat="domestic-conflict"] { border-color: rgba(167,139,250,.35); background: rgba(167,139,250,.10); }
-
-    /* Chart body */
-    .chart-body { padding: 20px 18px; }
+    .chart-body { padding: 20px 18px 14px; }
     .chart-container { position: relative; height: 370px; }
+    .chart-footer-row { display: flex; align-items: center; gap: 10px; margin-top: 10px; flex-wrap: wrap; }
+    .low-src-legend { display: flex; align-items: center; gap: 6px; font-family: 'IBM Plex Mono', monospace; font-size: 9px; color: var(--text-dim); }
+    .low-src-swatch { width: 14px; height: 10px; border-radius: 2px; background: rgba(234,179,8,0.35); border: 1px solid rgba(234,179,8,0.6); flex-shrink: 0; }
+    #low-src-count-label { color: var(--text-dim); }
 
-    /* ═══════════════════════════════════════
-       EVENT POPUP
-       — anchored to page, stays visible
-         while mouse is over canvas OR popup
-    ═══════════════════════════════════════ */
+    /* POPUPS */
     #event-popup {
-      position: fixed;
-      display: none;
-      z-index: 300;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-top: 3px solid var(--accent);
-      border-radius: 6px;
-      padding: 13px 15px;
-      width: 280px;
-      box-shadow: var(--shadow-pop);
-      pointer-events: auto;   /* ALWAYS clickable */
-      transition: background .25s, border-color .25s;
+      position: fixed; display: none; z-index: 300;
+      background: var(--surface); border: 1px solid var(--border);
+      border-top: 3px solid var(--accent); border-radius: 6px;
+      padding: 13px 15px; width: 280px; box-shadow: var(--shadow-pop);
+      pointer-events: auto; transition: background .25s, border-color .25s;
     }
     #event-popup.hidden { display: none !important; }
-    .ep-date {
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 9px; letter-spacing: .1em; color: var(--text-dim);
-      margin-bottom: 4px; text-transform: uppercase;
-    }
-    .ep-title {
-      font-weight: 600; font-size: .85rem; color: var(--text-hi);
-      margin-bottom: 5px; line-height: 1.3;
-    }
-    .ep-desc {
-      font-size: .775rem; color: var(--text-dim);
-      line-height: 1.55; font-weight: 400;
-    }
-    .ep-footer {
-      margin-top: 9px; display: flex;
-      align-items: center; justify-content: space-between; gap: 8px;
-    }
-    .ep-cat {
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 8px; letter-spacing: .08em; text-transform: uppercase;
-      padding: 2px 6px; border-radius: 3px;
-    }
-    .ep-source {
-      font-family: 'IBM Plex Mono', monospace; font-size: 9px;
-      color: var(--blue); letter-spacing: .04em;
-      text-decoration: none; white-space: nowrap;
-    }
+    .ep-date { font-family: 'IBM Plex Mono', monospace; font-size: 9px; letter-spacing: .1em; color: var(--text-dim); margin-bottom: 4px; text-transform: uppercase; }
+    .ep-title { font-weight: 600; font-size: .85rem; color: var(--text-hi); margin-bottom: 5px; line-height: 1.3; }
+    .ep-desc { font-size: .775rem; color: var(--text-dim); line-height: 1.55; }
+    .ep-footer { margin-top: 9px; display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+    .ep-cat { font-family: 'IBM Plex Mono', monospace; font-size: 8px; letter-spacing: .08em; text-transform: uppercase; padding: 2px 6px; border-radius: 3px; }
+    .ep-source { font-family: 'IBM Plex Mono', monospace; font-size: 9px; color: var(--blue); letter-spacing: .04em; text-decoration: none; white-space: nowrap; }
     .ep-source:hover { text-decoration: underline; }
 
-    /* ═══════════════════════════════════════
-       INFO GRID
-    ═══════════════════════════════════════ */
-    .info-grid {
-      display: grid; grid-template-columns: 1fr 1fr;
-      gap: 16px; margin-bottom: 20px;
-    }
-    @media(max-width: 600px) { .info-grid { grid-template-columns: 1fr; } }
-    .info-card {
+    #lowsrc-popup {
+      position: fixed; display: none; z-index: 300;
       background: var(--surface); border: 1px solid var(--border);
-      border-radius: 8px; padding: 20px; box-shadow: var(--shadow);
-      transition: background .25s, border-color .25s;
+      border-top: 3px solid #d97706; border-radius: 6px;
+      padding: 11px 14px; width: 250px; box-shadow: var(--shadow-pop);
+      pointer-events: none; transition: background .25s, border-color .25s;
     }
-    .info-card h3 {
-      font-family: 'IBM Plex Mono', monospace; font-size: 9px;
-      letter-spacing: .14em; text-transform: uppercase; color: var(--text-dim);
-      margin-bottom: 12px; padding-bottom: 8px;
-      border-bottom: 1px solid var(--border-2);
-    }
+    .lsp-date { font-family: 'IBM Plex Mono', monospace; font-size: 9px; color: #d97706; margin-bottom: 3px; letter-spacing: .06em; }
+    .lsp-val  { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--text-hi); margin-bottom: 6px; }
+    .lsp-note { font-size: .755rem; color: var(--text-dim); line-height: 1.6; }
+
+    /* INFO GRID */
+    .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px; }
+    @media(max-width: 600px) { .info-grid { grid-template-columns: 1fr; } }
+    .info-card { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 20px; box-shadow: var(--shadow); transition: background .25s, border-color .25s; }
+    .info-card h3 { font-family: 'IBM Plex Mono', monospace; font-size: 9px; letter-spacing: .14em; text-transform: uppercase; color: var(--text-dim); margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid var(--border-2); }
     .info-card p, .info-card li { font-size: .855rem; color: var(--text); line-height: 1.7; }
     .info-card ul { padding-left: 16px; }
     .info-card li { margin-bottom: 4px; }
     .info-card strong { font-weight: 600; color: var(--text-hi); }
-
-    .formula-block {
-      background: var(--surface-3); border: 1px solid var(--border-2);
-      border-radius: 5px; padding: 12px 14px;
-      font-family: 'IBM Plex Mono', monospace; font-size: .78rem;
-      color: var(--text); margin-top: 12px; line-height: 1.95;
-      transition: background .25s;
-    }
+    .formula-block { background: var(--surface-3); border: 1px solid var(--border-2); border-radius: 5px; padding: 12px 14px; font-family: 'IBM Plex Mono', monospace; font-size: .78rem; color: var(--text); margin-top: 12px; line-height: 1.95; transition: background .25s; }
     .formula-block .sym { color: var(--accent); font-weight: 500; }
-
     .legend-row { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 14px; }
-    .legend-item {
-      display: flex; align-items: center; gap: 6px;
-      font-size: .75rem; color: var(--text-dim);
-      font-family: 'IBM Plex Mono', monospace;
-    }
+    .legend-item { display: flex; align-items: center; gap: 6px; font-size: .75rem; color: var(--text-dim); font-family: 'IBM Plex Mono', monospace; }
     .legend-dot { width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0; }
 
-    /* ═══════════════════════════════════════
-       FOOTER
-    ═══════════════════════════════════════ */
-    .footer {
-      margin-top: 40px; padding-top: 16px;
-      border-top: 1px solid var(--border);
-      display: flex; flex-wrap: wrap; gap: 6px;
-      justify-content: space-between; align-items: flex-start;
-    }
-    .footer-col {
-      font-family: 'IBM Plex Mono', monospace; font-size: 9px;
-      color: var(--text-dim); line-height: 1.8; letter-spacing: .03em;
-    }
+    /* FOOTER */
+    .footer { margin-top: 40px; padding-top: 16px; border-top: 1px solid var(--border); display: flex; flex-wrap: wrap; gap: 6px; justify-content: space-between; align-items: flex-start; }
+    .footer-col { font-family: 'IBM Plex Mono', monospace; font-size: 9px; color: var(--text-dim); line-height: 1.8; letter-spacing: .03em; }
     .footer-col a { color: var(--blue); text-decoration: none; }
     .footer-col a:hover { text-decoration: underline; }
 
-    /* ═══════════════════════════════════════
-       LOADING
-    ═══════════════════════════════════════ */
-    #loading {
-      position: fixed; inset: 0; background: var(--bg);
-      display: flex; align-items: center; justify-content: center;
-      z-index: 999; transition: opacity .35s;
-    }
+    /* LOADING */
+    #loading { position: fixed; inset: 0; background: var(--bg); display: flex; align-items: center; justify-content: center; z-index: 999; transition: opacity .35s; }
     .loading-inner { text-align: center; }
-    .loading-bar {
-      width: 160px; height: 2px; background: var(--border-2);
-      border-radius: 2px; overflow: hidden; margin: 14px auto 0;
-    }
+    .loading-bar { width: 160px; height: 2px; background: var(--border-2); border-radius: 2px; overflow: hidden; margin: 14px auto 0; }
     .loading-fill { height: 100%; background: var(--accent); animation: lp 1.4s ease-in-out infinite; }
-    @keyframes lp {
-      0%   { width: 0%;  margin-left: 0; }
-      50%  { width: 60%; margin-left: 20%; }
-      100% { width: 0%;  margin-left: 100%; }
-    }
-    .loading-text {
-      font-family: 'IBM Plex Mono', monospace; font-size: 10px;
-      letter-spacing: .14em; color: var(--text-dim); text-transform: uppercase;
-    }
+    @keyframes lp { 0%{width:0%;margin-left:0} 50%{width:60%;margin-left:20%} 100%{width:0%;margin-left:100%} }
+    .loading-text { font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: .14em; color: var(--text-dim); text-transform: uppercase; }
   </style>
 </head>
 <body>
 
-<!-- Loading overlay -->
 <div id="loading">
   <div class="loading-inner">
     <div class="loading-text">Loading GSCI Data</div>
@@ -398,7 +239,6 @@
   </div>
 </div>
 
-<!-- Event popup — lives outside chart, always interactable -->
 <div id="event-popup" class="hidden">
   <div class="ep-date" id="ep-date"></div>
   <div class="ep-title" id="ep-title"></div>
@@ -409,9 +249,14 @@
   </div>
 </div>
 
+<div id="lowsrc-popup">
+  <div class="lsp-date" id="lsp-date"></div>
+  <div class="lsp-val" id="lsp-val"></div>
+  <div class="lsp-note">⚠ total_sources &lt; 10,000 — GSCI value may be unreliable due to GDELT ingestion gaps, holiday effect, or crawler outages.</div>
+</div>
+
 <div class="page">
 
-  <!-- ── HEADER ── -->
   <header class="header">
     <div class="header-inner">
       <div class="header-left">
@@ -421,7 +266,6 @@
       </div>
       <div class="header-right">
         <div class="header-actions">
-          <!-- Theme toggle -->
           <button class="btn btn-theme" id="theme-toggle" title="Toggle light/dark theme">☀</button>
           <a href="gsci_data.csv" download class="btn btn-outline">
             <svg width="11" height="11" viewBox="0 0 16 16" fill="currentColor"><path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/><path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"/></svg>
@@ -440,7 +284,31 @@
     </div>
   </header>
 
-  <!-- ── STATS ── -->
+  <!-- DATA QUALITY NOTICE -->
+  <div class="dq-banner">
+    <div class="dq-icon">⚠</div>
+    <div class="dq-content">
+      <div class="dq-title">Data Quality Notice — Source Count Variability</div>
+      <div class="dq-text">
+        The GSCI denominator <strong>N<sub>t</sub></strong> (total daily news sources) can vary substantially, potentially distorting index values on low-coverage dates. Days where <strong>total_sources &lt; 10,000</strong> are highlighted in amber on the chart.
+        <button class="dq-toggle" id="dq-toggle-btn" onclick="toggleDQDetail()">Show details ▾</button>
+      </div>
+      <div class="dq-expanded" id="dq-detail">
+        <div class="dq-detail">
+          Known causes of abnormally low <strong>total_sources</strong> values:
+          <ul>
+            <li><strong>Holiday Effect</strong> — news production declines on public holidays globally, reducing GDELT ingestion volume.</li>
+            <li><strong>GDELT Crawler Outages</strong> — GDELT's documentation notes occasional 12–24 hour data gaps due to Google Cloud sync delays or external crawl rate-limit events.</li>
+            <li><strong>Major News Crowding</strong> — a dominant breaking story can crowd out other coverage, compressing source distribution.</li>
+            <li><strong>Deduplication &amp; Versioning Changes</strong> — GDELT's internal deduplication logic or versioning updates can cause step-changes in reported source counts.</li>
+          </ul>
+          <span style="margin-top:8px; display:block;">GSCI values on flagged dates should be interpreted with caution. For robust analysis, consider excluding days where total_sources falls below an appropriate threshold for your use case.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STATS -->
   <div class="stats-row">
     <div class="stat-cell">
       <div class="stat-label">Latest Value</div>
@@ -458,9 +326,9 @@
       <div class="stat-meta">Mar 2015 – present</div>
     </div>
     <div class="stat-cell">
-      <div class="stat-label">All-Time Peak</div>
+      <div class="stat-label">1-Year Peak</div>
       <div class="stat-value up" id="stat-max">—</div>
-      <div class="stat-meta" id="stat-max-date">—</div>
+      <div class="stat-meta" id="stat-max-date">trailing 12 months</div>
     </div>
     <div class="stat-cell">
       <div class="stat-label">Observations</div>
@@ -469,11 +337,17 @@
     </div>
   </div>
 
-  <!-- ── CHART ── -->
+  <!-- CHART -->
   <div class="chart-card">
     <div class="chart-toolbar">
       <div class="toolbar-title">GSCI · Daily Index Value</div>
       <div class="toolbar-right">
+        <label class="lowsrc-toggle" id="lowsrc-toggle-wrap" title="Highlight days where total_sources < 10,000">
+          <div class="lowsrc-track on" id="lowsrc-track">
+            <div class="lowsrc-thumb"></div>
+          </div>
+          <span class="toggle-label">Low Src</span>
+        </label>
         <label class="event-toggle" id="event-toggle-wrap">
           <div class="toggle-track" id="toggle-track">
             <div class="toggle-thumb"></div>
@@ -498,10 +372,17 @@
       <div class="chart-container">
         <canvas id="gsciChart"></canvas>
       </div>
+      <div class="chart-footer-row" id="lowsrc-legend-row">
+        <div class="low-src-legend">
+          <div class="low-src-swatch"></div>
+          <span>Amber bands: total_sources &lt; 10,000 — values may be unreliable</span>
+          <span id="low-src-count-label"></span>
+        </div>
+      </div>
     </div>
   </div>
 
-  <!-- ── INFO CARDS ── -->
+  <!-- INFO CARDS -->
   <div class="info-grid">
     <div class="info-card">
       <h3>Index Construction</h3>
@@ -525,6 +406,7 @@
         <li><strong>Update schedule:</strong> Every Monday via GitHub Actions / BigQuery</li>
         <li><strong>Coverage:</strong> March 2015 – present</li>
         <li><strong>Complement:</strong> GPR Index, Caldara &amp; Iacoviello (2022)</li>
+        <li><strong>Data quality:</strong> Days with total_sources &lt; 10,000 are flagged; may reflect holidays, GDELT outages, or crawl rate limits.</li>
       </ul>
       <div class="legend-row">
         <div class="legend-item"><div class="legend-dot" style="background:var(--accent)"></div>Armed Conflict</div>
@@ -535,7 +417,6 @@
     </div>
   </div>
 
-  <!-- ── FOOTER ── -->
   <footer class="footer">
     <div class="footer-col">
       Data: <a href="https://www.gdeltproject.org/" target="_blank">GDELT Project</a> ·
@@ -546,18 +427,31 @@
     </div>
   </footer>
 
-</div><!-- /page -->
+</div>
 
 <script>
 // ══════════════════════════════════════════════════
-// State  (declared first — referenced by theme code below)
+// Constants & State
 // ══════════════════════════════════════════════════
+const LOW_SRC_THRESHOLD = 10000;
+
 let allData    = [];
 let allEvents  = [];
 let chart      = null;
 let showEvents = false;
+let showLowSrc = true;
 let activeRange = 'all';
 let activeCats  = new Set(['armed-conflict','terrorism','political-crisis','domestic-conflict']);
+
+// ══════════════════════════════════════════════════
+// DQ Detail toggle
+// ══════════════════════════════════════════════════
+function toggleDQDetail() {
+  const detail = document.getElementById('dq-detail');
+  const btn    = document.getElementById('dq-toggle-btn');
+  const open   = detail.classList.toggle('open');
+  btn.textContent = open ? 'Hide details ▴' : 'Show details ▾';
+}
 
 // ══════════════════════════════════════════════════
 // Theme
@@ -575,13 +469,11 @@ function applyTheme(t) {
   html.setAttribute('data-theme', t);
   themeBtn.textContent = t === 'light' ? '☾' : '☀';
   localStorage.setItem('gsci-theme', t);
-  if (chart) rebuildChartColors();
+  if (chart) buildChart();
 }
-
 themeBtn.addEventListener('click', () => applyTheme(currentTheme === 'light' ? 'dark' : 'light'));
 applyTheme(currentTheme);
 
-// Category colours — resolved from CSS vars at draw time
 function catColor(cat) {
   const map = {
     'armed-conflict':    getCSSVar('--accent'),
@@ -596,44 +488,26 @@ function catColor(cat) {
 // Boot
 // ══════════════════════════════════════════════════
 async function boot() {
-  // Try fetching a URL; return response text or null (never throws)
   async function tryFetch(url) {
     try {
-      console.log('[GSCI] Fetching:', url);
       const r = await fetch(url);
-      if (r.ok) { console.log('[GSCI] OK:', url); return await r.text(); }
+      if (r.ok) return await r.text();
       console.warn('[GSCI] HTTP', r.status, url);
-    } catch (e) {
-      console.warn('[GSCI] Fetch error:', url, e.message);
-    }
+    } catch (e) { console.warn('[GSCI] fetch error:', e.message); }
     return null;
   }
 
-  // ── Events JSON (optional — missing events just means no annotations) ──
   const eventsText = await tryFetch('events.json');
-  try {
-    allEvents = eventsText ? JSON.parse(eventsText) : [];
-    console.log('[GSCI] Events loaded:', allEvents.length);
-  } catch (e) {
-    console.warn('[GSCI] events.json parse error:', e.message);
-    allEvents = [];
-  }
+  try { allEvents = eventsText ? JSON.parse(eventsText) : []; } catch(e) { allEvents = []; }
 
-  // ── CSV (required) ──
   const csvText = await tryFetch('gsci_data.csv');
-
   if (!csvText) {
-    console.error('[GSCI] gsci_data.csv failed to load');
     document.getElementById('loading').innerHTML = `
       <div style="text-align:center;padding:32px;max-width:460px;font-family:'IBM Plex Mono',monospace">
-        <div style="font-size:13px;color:#c0392b;margin-bottom:18px;letter-spacing:.04em">⚠ DATA NOT FOUND</div>
+        <div style="font-size:13px;color:#c0392b;margin-bottom:18px">⚠ DATA NOT FOUND</div>
         <div style="font-size:11px;color:#6b7280;line-height:2">
           <b style="color:#374151">gsci_data.csv</b> could not be loaded.<br><br>
-          Make sure all three files are in the repo root and GitHub Pages is enabled:<br>
-          <code style="background:#f3f4f6;padding:2px 7px;border-radius:3px">index.html</code> &nbsp;
-          <code style="background:#f3f4f6;padding:2px 7px;border-radius:3px">gsci_data.csv</code> &nbsp;
-          <code style="background:#f3f4f6;padding:2px 7px;border-radius:3px">events.json</code><br><br>
-          Check the browser console (F12) for details.
+          Ensure all files are in the repo root with GitHub Pages enabled.
         </div>
       </div>`;
     return;
@@ -642,9 +516,11 @@ async function boot() {
   const parsed = Papa.parse(csvText.trim(), { header: true, skipEmptyLines: true });
   allData = parsed.data
     .filter(r => r.date && r.gsci)
-    .map(r => ({ date: r.date, gsci: parseFloat(r.gsci) }));
-
-  console.log('[GSCI] CSV rows loaded:', allData.length);
+    .map(r => ({
+      date: r.date,
+      gsci: parseFloat(r.gsci),
+      total_sources: r.total_sources ? parseInt(r.total_sources) : null
+    }));
 
   populateStats();
   buildChart();
@@ -655,7 +531,7 @@ async function boot() {
 }
 
 // ══════════════════════════════════════════════════
-// Helpers
+// Stats
 // ══════════════════════════════════════════════════
 function filterByRange(data, range) {
   if (range === 'all') return data;
@@ -666,13 +542,29 @@ function filterByRange(data, range) {
 
 function populateStats() {
   if (!allData.length) return;
-  const vals   = allData.map(d => d.gsci);
   const latest = allData[allData.length - 1];
   const prev30 = allData[Math.max(0, allData.length - 31)];
-  const mean   = vals.reduce((a, b) => a + b, 0) / vals.length;
-  const maxVal = Math.max(...vals);
-  const maxDate = allData.find(d => d.gsci === maxVal)?.date;
-  const chg = (latest.gsci - prev30.gsci) / prev30.gsci * 100;
+  const vals   = allData.map(d => d.gsci);
+  const mean   = vals.reduce((a,b)=>a+b,0) / vals.length;
+  const chg    = (latest.gsci - prev30.gsci) / prev30.gsci * 100;
+
+  // 1-year peak — exclude flagged low-source days for reliability
+  const oneYearAgo = new Date();
+  oneYearAgo.setFullYear(oneYearAgo.getFullYear() - 1);
+  const recentClean = allData.filter(d =>
+    new Date(d.date) >= oneYearAgo &&
+    (d.total_sources === null || d.total_sources >= LOW_SRC_THRESHOLD)
+  );
+  let maxVal = null, maxDate = '—';
+  if (recentClean.length) {
+    maxVal  = Math.max(...recentClean.map(d => d.gsci));
+    maxDate = recentClean.find(d => d.gsci === maxVal)?.date || '—';
+  }
+
+  // Low-source count
+  const lowCount = allData.filter(d => d.total_sources !== null && d.total_sources < LOW_SRC_THRESHOLD).length;
+  const lsLabel = document.getElementById('low-src-count-label');
+  if (lsLabel) lsLabel.textContent = `· ${lowCount} flagged day${lowCount !== 1 ? 's' : ''} total`;
 
   const chgEl = document.getElementById('stat-change');
   chgEl.textContent = (chg >= 0 ? '+' : '') + chg.toFixed(1) + '%';
@@ -681,8 +573,8 @@ function populateStats() {
   document.getElementById('stat-latest').textContent      = latest.gsci.toFixed(3);
   document.getElementById('stat-latest-date').textContent = latest.date;
   document.getElementById('stat-mean').textContent        = mean.toFixed(3);
-  document.getElementById('stat-max').textContent         = maxVal.toFixed(3);
-  document.getElementById('stat-max-date').textContent    = maxDate || '';
+  document.getElementById('stat-max').textContent         = maxVal !== null ? maxVal.toFixed(3) : '—';
+  document.getElementById('stat-max-date').textContent    = maxDate !== '—' ? maxDate + ' (excl. low-src)' : 'no clean data';
   document.getElementById('stat-obs').textContent         = allData.length.toLocaleString();
 }
 
@@ -693,7 +585,7 @@ function buildChart() {
   const filtered = filterByRange(allData, activeRange);
   const labels   = filtered.map(d => d.date);
   const values   = filtered.map(d => d.gsci);
-  const mean     = values.reduce((a, b) => a + b, 0) / values.length;
+  const mean     = values.reduce((a,b)=>a+b,0) / values.length;
   const meanLine = values.map(() => mean);
 
   const ctx = document.getElementById('gsciChart').getContext('2d');
@@ -725,7 +617,7 @@ function buildChart() {
           label: 'Mean',
           data: meanLine,
           borderColor: getCSSVar('--chart-mean'),
-          borderWidth: 1, borderDash: [4, 5],
+          borderWidth: 1, borderDash: [4,5],
           pointRadius: 0, fill: false, tension: 0, order: 2
         }
       ]
@@ -748,7 +640,14 @@ function buildChart() {
           callbacks: {
             title: (items) => items[0].label,
             label: (item) => {
-              if (item.datasetIndex === 0) return `  GSCI   ${item.parsed.y.toFixed(4)}`;
+              if (item.datasetIndex === 0) {
+                const d = filtered[item.dataIndex];
+                let line = `  GSCI   ${item.parsed.y.toFixed(4)}`;
+                if (d && d.total_sources !== null && d.total_sources < LOW_SRC_THRESHOLD) {
+                  line += `  ⚠ low src (${d.total_sources.toLocaleString()})`;
+                }
+                return line;
+              }
               if (item.datasetIndex === 1) return `  Mean   ${item.parsed.y.toFixed(4)}`;
               return '';
             }
@@ -781,22 +680,50 @@ function buildChart() {
       }
     }
   });
-
-  if (showEvents) {
-    requestAnimationFrame(() => {
-      const ann = visibleAnnotations(filtered);
-      if (ann.length) drawEventLines(filtered, ann);
-    });
-  }
-}
-
-function rebuildChartColors() {
-  // Full rebuild to pick up new CSS var values
-  buildChart();
 }
 
 // ══════════════════════════════════════════════════
-// Event annotations drawn on canvas
+// Low-source highlights (drawn on canvas after chart)
+// ══════════════════════════════════════════════════
+function drawLowSrcHighlights(filteredData) {
+  if (!chart || !showLowSrc) return;
+  const canvas = document.getElementById('gsciChart');
+  const c = canvas.getContext('2d');
+  const meta = chart.getDatasetMeta(0);
+  if (!meta.data.length) return;
+  const area = chart.chartArea;
+
+  c.save();
+  let bandStart = null;
+  const flushBand = (endX) => {
+    if (bandStart === null) return;
+    const w = Math.max(endX - bandStart, 2);
+    c.fillStyle = 'rgba(234,179,8,0.20)';
+    c.fillRect(bandStart, area.top, w, area.bottom - area.top);
+    c.strokeStyle = 'rgba(234,179,8,0.50)';
+    c.lineWidth = 1;
+    c.strokeRect(bandStart, area.top, w, area.bottom - area.top);
+    bandStart = null;
+  };
+
+  filteredData.forEach((d, i) => {
+    if (!meta.data[i]) return;
+    const x = meta.data[i].x;
+    const isLow = d.total_sources !== null && d.total_sources < LOW_SRC_THRESHOLD;
+    if (isLow) {
+      if (bandStart === null) bandStart = x - 1;
+    } else {
+      flushBand(x - 1);
+    }
+  });
+  if (bandStart !== null && meta.data.length) {
+    flushBand(meta.data[meta.data.length - 1].x + 2);
+  }
+  c.restore();
+}
+
+// ══════════════════════════════════════════════════
+// Event annotation lines
 // ══════════════════════════════════════════════════
 function visibleAnnotations(filteredData) {
   if (!showEvents || !allEvents.length || !filteredData.length) return [];
@@ -815,7 +742,6 @@ function drawEventLines(filteredData, annotations) {
   const c = canvas.getContext('2d');
   const meta = chart.getDatasetMeta(0);
   if (!meta.data.length) return;
-
   const dateToX = {};
   filteredData.forEach((d, i) => { if (meta.data[i]) dateToX[d.date] = meta.data[i].x; });
   const area = chart.chartArea;
@@ -829,10 +755,9 @@ function drawEventLines(filteredData, annotations) {
     if (!closestKey || dateToX[closestKey] == null) return;
     const x = dateToX[closestKey];
     const col = catColor(ev.category);
-
     c.save();
     c.strokeStyle = col; c.lineWidth = 1;
-    c.setLineDash([3, 4]); c.globalAlpha = .4;
+    c.setLineDash([3,4]); c.globalAlpha = .4;
     c.beginPath(); c.moveTo(x, area.top); c.lineTo(x, area.bottom); c.stroke();
     c.setLineDash([]); c.globalAlpha = .9;
     c.fillStyle = col;
@@ -841,103 +766,113 @@ function drawEventLines(filteredData, annotations) {
   });
 }
 
-// Hook Chart.js draw cycle for annotations
+// Hook Chart.js draw cycle to overlay low-src + events
 const _origDraw = Chart.prototype.draw;
-Chart.prototype.draw = function () {
+Chart.prototype.draw = function() {
   _origDraw.call(this);
-  if (this.canvas && this.canvas.id === 'gsciChart' && showEvents) {
+  if (this.canvas && this.canvas.id === 'gsciChart') {
     const filtered = filterByRange(allData, activeRange);
-    const ann = visibleAnnotations(filtered);
-    if (ann.length) drawEventLines(filtered, ann);
+    if (showLowSrc) drawLowSrcHighlights(filtered);
+    if (showEvents) {
+      const ann = visibleAnnotations(filtered);
+      if (ann.length) drawEventLines(filtered, ann);
+    }
   }
 };
 
 // ══════════════════════════════════════════════════
-// Event Popup — mouse tracking with bridge gap
+// Hover popups
 // ══════════════════════════════════════════════════
 function setupEventHover() {
   const canvas  = document.getElementById('gsciChart');
   const popup   = document.getElementById('event-popup');
+  const lsPopup = document.getElementById('lowsrc-popup');
   let hideTimer = null;
-  let currentEvent = null;
 
-  function showPopup(ev, clientX, clientY) {
+  function positionPopup(el, clientX, clientY, w, h) {
+    let px = clientX + 16, py = clientY - 16;
+    if (px + w > window.innerWidth - 8) px = clientX - w - 10;
+    if (py + h > window.innerHeight - 8) py = clientY - h + 10;
+    el.style.left = px + 'px'; el.style.top = py + 'px';
+  }
+
+  function showEventPopup(ev, clientX, clientY) {
+    lsPopup.style.display = 'none';
     const col = catColor(ev.category);
     document.getElementById('ep-date').textContent  = ev.date;
     document.getElementById('ep-title').textContent = ev.label;
     document.getElementById('ep-desc').textContent  = ev.description;
-
     const catEl = document.getElementById('ep-cat');
-    catEl.textContent = ev.category.replace(/-/g, ' ');
+    catEl.textContent = ev.category.replace(/-/g,' ');
     catEl.style.cssText = `color:${col};background:${col}18;border:1px solid ${col}44`;
-
     const srcEl = document.getElementById('ep-source');
-    if (ev.source_url && ev.source_label) {
-      srcEl.textContent = '↗ ' + ev.source_label;
-      srcEl.href = ev.source_url;
-      srcEl.style.display = 'inline';
-    } else {
-      srcEl.style.display = 'none';
-    }
+    if (ev.source_url) { srcEl.textContent = '↗ '+(ev.source_label||'Source'); srcEl.href = ev.source_url; srcEl.style.display='inline'; }
+    else { srcEl.style.display='none'; }
+    positionPopup(popup, clientX, clientY, 284, 160);
+    popup.classList.remove('hidden'); popup.style.display = 'block';
+  }
 
-    // Position: prefer right side, flip if needed
-    const W = 284, H = 160;
-    let px = clientX + 16, py = clientY - 16;
-    if (px + W > window.innerWidth - 8) px = clientX - W - 10;
-    if (py + H > window.innerHeight - 8) py = clientY - H + 10;
-    popup.style.left = px + 'px';
-    popup.style.top  = py + 'px';
-    popup.classList.remove('hidden');
-    popup.style.display = 'block';
-    currentEvent = ev;
+  function showLowSrcPopup(d, clientX, clientY) {
+    popup.style.display = 'none'; popup.classList.add('hidden');
+    document.getElementById('lsp-date').textContent = d.date;
+    document.getElementById('lsp-val').textContent  =
+      `GSCI: ${d.gsci.toFixed(4)} · Sources: ${d.total_sources !== null ? d.total_sources.toLocaleString() : 'N/A'}`;
+    positionPopup(lsPopup, clientX, clientY, 254, 110);
+    lsPopup.style.display = 'block';
   }
 
   function scheduleHide() {
     hideTimer = setTimeout(() => {
-      popup.style.display = 'none';
-      popup.classList.add('hidden');
-      currentEvent = null;
+      popup.style.display='none'; popup.classList.add('hidden');
+      lsPopup.style.display='none';
     }, 180);
   }
-
   function cancelHide() { clearTimeout(hideTimer); }
 
   canvas.addEventListener('mousemove', (e) => {
-    if (!showEvents || !chart) { scheduleHide(); return; }
+    if (!chart) { scheduleHide(); return; }
     const rect   = canvas.getBoundingClientRect();
     const mouseX = e.clientX - rect.left;
     const filtered = filterByRange(allData, activeRange);
-    const ann = visibleAnnotations(filtered);
-    if (!ann.length) { scheduleHide(); return; }
-
     const meta = chart.getDatasetMeta(0);
-    let closest = null, minDist = 14;
 
-    ann.forEach(ev => {
-      let closestKey = null, minDiff = Infinity;
-      filtered.forEach(d => {
-        const diff = Math.abs(new Date(d.date) - new Date(ev.date));
-        if (diff < minDiff) { minDiff = diff; closestKey = d.date; }
+    // Find nearest event
+    let evClosest = null, evDist = 14;
+    if (showEvents) {
+      const ann = visibleAnnotations(filtered);
+      ann.forEach(ev => {
+        let ck=null, md=Infinity;
+        filtered.forEach(d => { const df=Math.abs(new Date(d.date)-new Date(ev.date)); if(df<md){md=df;ck=d.date;} });
+        if(!ck) return;
+        const idx=filtered.findIndex(d=>d.date===ck);
+        if(idx<0||!meta.data[idx]) return;
+        const dist=Math.abs(mouseX-meta.data[idx].x);
+        if(dist<evDist){evDist=dist;evClosest=ev;}
       });
-      if (!closestKey) return;
-      const idx = filtered.findIndex(d => d.date === closestKey);
-      if (idx < 0 || !meta.data[idx]) return;
-      const dist = Math.abs(mouseX - meta.data[idx].x);
-      if (dist < minDist) { minDist = dist; closest = ev; }
-    });
+    }
 
-    if (closest) {
-      cancelHide();
-      showPopup(closest, e.clientX, e.clientY);
+    // Find nearest low-src day
+    let lsClosest = null, lsDist = 10;
+    if (showLowSrc) {
+      filtered.forEach((d,i) => {
+        if(!meta.data[i]) return;
+        if(d.total_sources!==null&&d.total_sources<LOW_SRC_THRESHOLD) {
+          const dist=Math.abs(mouseX-meta.data[i].x);
+          if(dist<lsDist){lsDist=dist;lsClosest=d;}
+        }
+      });
+    }
+
+    if (evClosest && (!lsClosest || evDist <= lsDist)) {
+      cancelHide(); showEventPopup(evClosest, e.clientX, e.clientY);
+    } else if (lsClosest) {
+      cancelHide(); showLowSrcPopup(lsClosest, e.clientX, e.clientY);
     } else {
       scheduleHide();
     }
   });
 
-  // When mouse leaves canvas, start a short timer — popup stays alive
   canvas.addEventListener('mouseleave', scheduleHide);
-
-  // If mouse enters popup, cancel the hide
   popup.addEventListener('mouseenter', cancelHide);
   popup.addEventListener('mouseleave', scheduleHide);
 }
@@ -946,7 +881,6 @@ function setupEventHover() {
 // Controls
 // ══════════════════════════════════════════════════
 function setupControls() {
-  // Range buttons
   document.querySelectorAll('.range-btn').forEach(btn => {
     btn.addEventListener('click', () => {
       document.querySelectorAll('.range-btn').forEach(b => b.classList.remove('active'));
@@ -956,11 +890,9 @@ function setupControls() {
     });
   });
 
-  // Event toggle
   const toggleWrap  = document.getElementById('event-toggle-wrap');
   const toggleTrack = document.getElementById('toggle-track');
   const catFilter   = document.getElementById('cat-filter');
-
   toggleWrap.addEventListener('click', () => {
     showEvents = !showEvents;
     toggleTrack.classList.toggle('on', showEvents);
@@ -968,7 +900,16 @@ function setupControls() {
     buildChart();
   });
 
-  // Category filter
+  const lowsrcWrap  = document.getElementById('lowsrc-toggle-wrap');
+  const lowsrcTrack = document.getElementById('lowsrc-track');
+  const legendRow   = document.getElementById('lowsrc-legend-row');
+  lowsrcWrap.addEventListener('click', () => {
+    showLowSrc = !showLowSrc;
+    lowsrcTrack.classList.toggle('on', showLowSrc);
+    legendRow.style.opacity = showLowSrc ? '1' : '0.35';
+    buildChart();
+  });
+
   document.querySelectorAll('.cat-btn').forEach(btn => {
     btn.addEventListener('click', () => {
       const cat = btn.dataset.cat;
@@ -981,7 +922,6 @@ function setupControls() {
   setupEventHover();
 }
 
-// ══════════════════════════════════════════════════
 boot();
 </script>
 </body>
