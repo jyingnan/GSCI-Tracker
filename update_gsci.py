@@ -1,11 +1,13 @@
 import os
 import json
 import pandas as pd
+from datetime import datetime, timedelta
 from google.cloud import bigquery
 from google.oauth2 import service_account
 
 # 1. Authentication via GitHub Secrets
 try:
+    # 假设环境变量中存储了 JSON 密钥字符串
     key_json = json.loads(os.environ.get('GCP_SERVICE_ACCOUNT_KEY'))
     credentials = service_account.Credentials.from_service_account_info(key_json)
     client = bigquery.Client(credentials=credentials, project=credentials.project_id)
@@ -13,20 +15,16 @@ except Exception as e:
     print(f"Authentication Error: {e}")
     exit(1)
 
-# 2. Determine Update Range
-csv_file = 'gsci_data.csv'
-if os.path.exists(csv_file) and os.path.getsize(csv_file) > 10:
-    df_old = pd.read_csv(csv_file)
-    df_old['date'] = pd.to_datetime(df_old['date'])
-    last_date = df_old['date'].max().strftime('%Y%m%d')
-    print(f"Existing data found. Updating from {last_date}...")
-else:
-    df_old = pd.DataFrame()
-    last_date = '20150301' 
-    print("No existing data. Performing full historical fetch...")
+# 2. Define Date Range
+# 设定起始日期
+start_date = '20150301' 
+# 获取昨天的日期 (YYYYMMDD)，确保数据完整性
+yesterday = (datetime.now() - timedelta(days=1)).strftime('%Y%m%d')
+
+print(f"Fetching data from {start_date} to {yesterday} (Yesterday)...")
 
 # 3. SQL Query (GSCI Methodology)
-# GSCI = (Sum of |Goldstein| * NumSources) / Total_Daily_Sources
+# 增加 total_sources 栏位，并限制日期到昨天
 query = f"""
 WITH daily_raw AS (
   SELECT 
@@ -34,29 +32,33 @@ WITH daily_raw AS (
     SUM(NumSources) AS total_sources,
     SUM(IF(GoldsteinScale < 0, ABS(GoldsteinScale) * NumSources, 0)) AS gsci_numerator
   FROM `gdelt-bq.gdeltv2.events`
-  WHERE SQLDATE >= {last_date}
+  WHERE SQLDATE >= {start_date} AND SQLDATE <= {yesterday}
   GROUP BY SQLDATE
 )
 SELECT 
   FORMAT_DATE('%Y-%m-%d', CAST(PARSE_DATE('%Y%m%d', CAST(SQLDATE AS STRING)) AS DATE)) AS date,
+  total_sources,
   SAFE_DIVIDE(gsci_numerator, total_sources) AS gsci
 FROM daily_raw
 ORDER BY date ASC
 """
 
-# 4. Execution and Merging
-print("Querying BigQuery...")
-df_new = client.query(query).to_dataframe()
+# 4. Execution and Saving (Overwrite Mode)
+csv_file = 'gsci_data.csv'
 
-if not df_new.empty:
-    df_new['date'] = pd.to_datetime(df_new['date'])
-    if not df_old.empty:
-        df_final = pd.concat([df_old, df_new]).drop_duplicates(subset=['date']).sort_values('date')
+print("Querying BigQuery... This may take a moment.")
+try:
+    df_new = client.query(query).to_dataframe()
+
+    if not df_new.empty:
+        # 直接储存为 CSV，不读取旧档，实现完全覆盖
+        # 格式化日期确保输出美观
+        df_new.to_csv(csv_file, index=False)
+        print(f"Update successful. File '{csv_file}' has been overwritten.")
+        print(f"Total rows saved: {len(df_new)}")
+        print(f"Latest data point: {df_new['date'].max()}")
     else:
-        df_final = df_new
-    
-    df_final['date'] = df_final['date'].dt.strftime('%Y-%m-%d')
-    df_final.to_csv(csv_file, index=False)
-    print(f"Update successful. Added {len(df_new)} new observations.")
-else:
-    print("No new data found.")
+        print("No data found for the specified range.")
+
+except Exception as e:
+    print(f"An error occurred during query or saving: {e}")
