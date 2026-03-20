@@ -139,7 +139,7 @@ GSCI is designed as an **event-based complement** to the Geopolitical Risk (GPR)
 
 If you use GSCI data in your research, please cite:
 
-> [Author(s)]. "From Ten Newspapers to the World: An Event-Based Conflict Intensity Index." *Working Paper*, 2026. GitHub: [https://github.com/jyingnan/GSCI-Tracker](https://github.com/jyingnan/GSCI-Tracker)
+> [Author(s)]. "From Ten Newspapers to the World: An Event-Based Global Conflict Intensity Index." *Working Paper*, 2026. GitHub: [https://github.com/jyingnan/GSCI-Tracker](https://github.com/jyingnan/GSCI-Tracker)
 
 The GSCI data series is also directly citable as a dataset:
 
@@ -295,7 +295,7 @@ GSCI 被设计为 Caldara 和 Iacoviello（2022）GPR 指数的**事件侧补充
 
 如在研究中使用 GSCI 数据，请引用：
 
-> [作者]. "From Ten Newspapers to the World: An Event-Based Conflict Intensity Index." *Working Paper*, 2026. GitHub: [https://github.com/jyingnan/GSCI-Tracker](https://github.com/jyingnan/GSCI-Tracker)
+> [作者]. "From Ten Newspapers to the World: An Event-Based Global Conflict Intensity Index." *Working Paper*, 2026. GitHub: [https://github.com/jyingnan/GSCI-Tracker](https://github.com/jyingnan/GSCI-Tracker)
 
 如直接引用数据集：
 
