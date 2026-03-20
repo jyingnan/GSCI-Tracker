@@ -37,7 +37,7 @@ $$GSCI_t = \frac{\sum_{i \in C_t} |G_i| \times S_{i,t}}{N_t}$$
 | $S_{i,t}$ | Number of news sources reporting event $i$ on day $t$ |
 | $N_t$ | Total number of news sources on day $t$ (`total_sources`) |
 
-Source-share normalization by $N_t$ ensures cross-day comparability and controls for variation in total daily news volume. Only events with **strictly negative Goldstein scores** are included, covering CAMEO-coded conflict categories such as disapproval (−2), threats (−6), military posturing (−7.2), assaults (−9), and mass violence (−10).
+Source-share normalization by $N_t$ ensures cross-day comparability and controls for variation in total daily news volume. Only events with **strictly negative Goldstein scores** are included, covering CAMEO-coded conflict categories.
 
 ---
 
@@ -193,7 +193,7 @@ $$GSCI_t = \frac{\sum_{i \in C_t} |G_i| \times S_{i,t}}{N_t}$$
 | $S_{i,t}$ | 第 $t$ 日报道事件 $i$ 的新闻来源数量 |
 | $N_t$ | 第 $t$ 日新闻来源总数（即 `total_sources`） |
 
-以 $N_t$ 进行来源份额归一化，确保跨日可比性，并控制每日新闻总量的波动。指数仅纳入 **Goldstein 分数严格为负**的事件，涵盖不认可（−2）、威胁（−6）、军事对峙（−7.2）、攻击（−9）、大规模暴力（−10）等 CAMEO 冲突类别。
+以 $N_t$ 进行来源份额归一化，确保跨日可比性，并控制每日新闻总量的波动。指数仅纳入 **Goldstein 分数严格为负**的事件。
 
 ---
 
