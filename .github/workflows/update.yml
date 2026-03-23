@@ -38,6 +38,8 @@ jobs:
           # Only commit if there are changes to avoid error 128
           if git diff --staged --quiet; then
             echo "No changes to commit"
+            # 强制空提交保持活跃，防止GitHub休眠cron
+            git commit --allow-empty -m "Keep-alive: $(date)"
           else
             git commit -m "Automated Data Update: $(date)"
             git push
