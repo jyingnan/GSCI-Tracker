@@ -1,6 +1,10 @@
 name: GSCI Weekly Auto-Update
 
 on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/update.yml'
   schedule:
     - cron: '0 0 * * 1' # Runs every Monday at 00:00 UTC
   workflow_dispatch: # Allows manual trigger for testing
